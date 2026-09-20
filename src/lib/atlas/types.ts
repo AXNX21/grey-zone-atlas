@@ -122,6 +122,8 @@ export type Campaign = {
   incidents: Incident[];
   responses: string[];
   sources: Source[];
+  /** Extra search terms: spellings, names, case titles. */
+  aliases?: string[];
 };
 
 export type TimelineEvent = {

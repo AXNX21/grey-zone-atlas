@@ -46,7 +46,7 @@ export function CommandPalette({
               hits.map((hit) => (
                 <Command.Item
                   key={hit.kind + hit.id}
-                  value={hit.kind + hit.id}
+                  value={[hit.kind, hit.id, hit.title, hit.dek, ...hit.tags].join(" ")}
                   onSelect={() => {
                     onOpenChange(false);
                     const sep = hit.href.includes("?") ? "&" : "?";

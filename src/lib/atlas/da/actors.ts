@@ -335,7 +335,13 @@ export const actors: Actor[] = [
     name: "PET og FE",
     short: "Dansk efterretning: butikken, der kortlagde Syrien-rørledningen og så mistede retten til at tie",
     kind: "institution",
-    aliases: ["Politiets Efterretningstjeneste", "Forsvarets Efterretningstjeneste", "det danske efterretningsmiljø"],
+    aliases: [
+      "Politiets Efterretningstjeneste",
+      "Forsvarets Efterretningstjeneste",
+      "det danske efterretningsmiljø",
+      "Samsam",
+      "Ahmed Samsam",
+    ],
     summary:
       "En lille stats øjne. PET tager det indre: terror, ekstremisme, kontraspionage. FE tager det ydre: fremmedkrigere, partnertjenester, kablet. De rekrutterede Ahmed Samsam, betalte ham, sendte ham ind i Syrien 2013–14 og hverken-be-eller-afkræftede ham ind i en otteårig spansk terrordom. Højesteret i september 2025 tvang dem til at sige kildeforholdet højt. Optagelse her er ikke en dom om, at tjenesterne er fjenden. Det er protokollen over et HUMINT-kollaps i den ene europæiske kontrolcase, der ellers flyttede tallene.",
     interests: [

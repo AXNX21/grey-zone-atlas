@@ -29,6 +29,7 @@ export const Route = createRootRoute({
         { name: "theme-color", content: "#0c0c0b" },
         { name: "version", content: ATLAS_VERSION },
         { name: "date", content: ATLAS_PUBLISHED_AT },
+        { httpEquiv: "Cache-Control", content: "no-store, no-cache, must-revalidate" },
       ],
       links: [
         { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },

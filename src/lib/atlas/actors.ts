@@ -335,7 +335,13 @@ export const actors: Actor[] = [
     name: "PET and FE",
     short: "Danish intelligence: the shop that mapped the Syria pipeline, then lost the right to stay silent",
     kind: "institution",
-    aliases: ["Politiets Efterretningstjeneste", "Forsvarets Efterretningstjeneste", "Danish intelligence community"],
+    aliases: [
+      "Politiets Efterretningstjeneste",
+      "Forsvarets Efterretningstjeneste",
+      "Danish intelligence community",
+      "Samsam",
+      "Ahmed Samsam",
+    ],
     summary:
       "A small state's eyes. PET does the interior: terrorism, extremism, counter-intelligence. FE does the exterior: foreign fighters, partner services, the cable. They recruited Ahmed Samsam, paid him, sent him into Syria in 2013–14, then neither-confirmed-nor-denied him into an eight-year Spanish terror conviction. The Supreme Court in September 2025 made them say the source relationship out loud. Inclusion here is not a verdict that the services are the enemy. It is the record of a HUMINT collapse in the one European control case that otherwise moved the numbers.",
     interests: [
