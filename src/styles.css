@@ -1,0 +1,118 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Instrument Serif", "Iowan Old Style", "Palatino Linotype", Palatino, serif;
+  --font-sans: "IBM Plex Sans", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", "SF Mono", ui-monospace, Menlo, monospace;
+
+  --color-background: #0c0c0b;
+  --color-foreground: #eceae4;
+  --color-card: #141413;
+  --color-card-foreground: #eceae4;
+  --color-popover: #1a1a17;
+  --color-popover-foreground: #eceae4;
+  --color-primary: #c8c2b4;
+  --color-primary-foreground: #0c0c0b;
+  --color-secondary: #1f1f1c;
+  --color-secondary-foreground: #eceae4;
+  --color-muted: #1c1c19;
+  --color-muted-foreground: #9a968c;
+  --color-accent: #22221e;
+  --color-accent-foreground: #eceae4;
+  --color-destructive: #c45c4a;
+  --color-border: #2c2c28;
+  --color-input: #2c2c28;
+  --color-ring: #c8c2b4;
+  --color-steel: #c8c2b4;
+  --color-faint: #6e6b64;
+  --color-warn: #c4a574;
+  --color-confirm: #7a9a78;
+  --color-info: #8a9a9e;
+
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius: 0.5rem;
+}
+
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: var(--color-background);
+    color: var(--color-foreground);
+  }
+
+  html,
+  body,
+  #app {
+    min-height: 100%;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--color-background);
+    color: var(--color-foreground);
+    line-height: 1.55;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-steel) 28%, transparent);
+    color: var(--color-foreground);
+  }
+}
+
+@utility atlas-grid {
+  background-color: var(--color-background);
+  background-image:
+    linear-gradient(
+      to right,
+      color-mix(in oklab, var(--color-foreground) 4.5%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--color-foreground) 4.5%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 64px 64px;
+  background-position: -1px -1px;
+}
+
+@utility shadow-border {
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-foreground) 8%, transparent);
+}
+
+@utility shadow-border-hover {
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-foreground) 16%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
