@@ -11,6 +11,9 @@ import {
   CENSUS_ETHNIC_2017,
   CENSUS_ETHNIC_TOTAL,
   CENSUS_FLOORS,
+  CENSUS_FUND_GRADE,
+  CENSUS_FUND_IDS,
+  CENSUS_FUND_LINES,
   CENSUS_NOW_YEAR,
   CENSUS_PURPOSE_GRADE,
   CENSUS_PURPOSE_IDS,
@@ -22,7 +25,7 @@ import {
   inclusiveFromMapped,
   shareOf,
 } from "@/lib/atlas/census";
-import type { CensusEthnicBloc, CensusFloorId, CensusLayerId, CensusPurposeId, CensusSiteFloor } from "@/lib/atlas/census";
+import type { CensusEthnicBloc, CensusFloorId, CensusFundId, CensusLayerId, CensusPurposeId, CensusSiteFloor } from "@/lib/atlas/census";
 import { useAtlas } from "@/lib/atlas";
 import { interpolate, useT } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
@@ -51,7 +54,9 @@ export function MosqueCensus() {
   const [openFloor, setOpenFloor] = useState<CensusFloorId | "">("hostile");
   const [siteFilter, setSiteFilter] = useState<CensusSiteFloor | "all">("all");
   const [purposeFilter, setPurposeFilter] = useState<CensusPurposeId | "all">("all");
+  const [fundFilter, setFundFilter] = useState<CensusFundId | "all">("all");
   const [openPurpose, setOpenPurpose] = useState<CensusPurposeId | "">("dawa");
+  const [openFund, setOpenFund] = useState<CensusFundId | "">("qatar");
 
   const inclusive = inclusiveFromDemo(pop, catchment);
   const fromMapped = inclusiveFromMapped(CENSUS_DEFAULTS.mapped, darkRatio);
@@ -97,7 +102,8 @@ export function MosqueCensus() {
   const named = CENSUS_SITES.filter(
     (s) =>
       (siteFilter === "all" || s.floor === siteFilter) &&
-      (purposeFilter === "all" || s.purposes.includes(purposeFilter)),
+      (purposeFilter === "all" || s.purposes.includes(purposeFilter)) &&
+      (fundFilter === "all" || s.funds.includes(fundFilter)),
   );
 
   const reset = () => {
@@ -331,6 +337,80 @@ export function MosqueCensus() {
       </section>
 
       <section>
+        <h2 className="font-display text-2xl">{copy.fundsTitle}</h2>
+        <p className="mt-2 max-w-2xl text-sm text-muted-foreground">{copy.fundsDek}</p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          {(["all", ...CENSUS_FUND_IDS] as const).map((id) => {
+            const label = id === "all" ? copy.fundFilterAll : copy.funds[id].name.split(" / ")[0];
+            const on = fundFilter === id;
+            return (
+              <button
+                key={id}
+                type="button"
+                onClick={() => {
+                  setFundFilter(id);
+                  if (id !== "all") setOpenFund(id);
+                }}
+                className={cn(
+                  "inline-flex h-9 items-center rounded-md px-3 text-xs",
+                  on ? "bg-primary text-primary-foreground" : "text-muted-foreground shadow-border hover:bg-accent hover:text-foreground",
+                )}
+              >
+                {label}
+              </button>
+            );
+          })}
+        </div>
+        <div className="mt-4 flex flex-col gap-2">
+          {CENSUS_FUND_IDS.map((id) => {
+            const text = copy.funds[id];
+            const on = openFund === id;
+            const n = CENSUS_SITES.filter((s) => s.funds.includes(id)).length;
+            return (
+              <article key={id} className="rounded-xl bg-card shadow-border">
+                <button
+                  type="button"
+                  aria-expanded={on}
+                  onClick={() => setOpenFund(on ? "" : id)}
+                  className="flex min-h-12 w-full items-center gap-3 px-4 py-2.5 text-left"
+                >
+                  <span className="flex-1">
+                    <span className="block font-display text-lg leading-snug">{text.name}</span>
+                    <span className="mt-1 block font-mono text-[10px] tracking-wider text-faint uppercase">
+                      {interpolate(copy.purposeNamed, { n })}
+                    </span>
+                  </span>
+                  <AttributionBadge level={CENSUS_FUND_GRADE[id]} />
+                </button>
+                {on ? (
+                  <div className="border-t border-border px-4 py-4">
+                    <p className="font-mono text-[10px] tracking-[0.14em] text-faint uppercase">{copy.purposeCover}</p>
+                    <p className="mt-1 text-sm text-muted-foreground">{text.cover}</p>
+                    <p className="mt-3 font-mono text-[10px] tracking-[0.14em] text-faint uppercase">{copy.purposeNetwork}</p>
+                    <p className="mt-1 text-sm text-foreground/90">{text.network}</p>
+                  </div>
+                ) : null}
+              </article>
+            );
+          })}
+        </div>
+        <p className="mt-6 font-mono text-[10px] tracking-[0.18em] text-faint uppercase">{copy.fundLinesTitle}</p>
+        <ul className="mt-3 flex flex-col gap-2">
+          {CENSUS_FUND_LINES.map((line) => (
+            <li key={line.id} className="flex flex-col gap-1 rounded-xl bg-card px-4 py-3 shadow-border sm:flex-row sm:items-baseline sm:gap-6">
+              <span className="font-mono text-xs text-faint">{line.year}</span>
+              <span className="font-display text-xl">{line.dkk}</span>
+              <span className="flex-1 text-sm text-muted-foreground">
+                <span className="text-foreground">{copy.funds[line.fund].name.split(" / ")[0]}. </span>
+                {copy.fundLineNotes[line.id]}
+              </span>
+              <AttributionBadge level={line.grade} />
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section>
         <h2 className="font-display text-2xl">{copy.floorsTitle}</h2>
         <p className="mt-2 max-w-2xl text-sm text-muted-foreground">{copy.floorsDek}</p>
         <div className="mt-6 flex flex-col gap-3">
@@ -432,6 +512,19 @@ export function MosqueCensus() {
                       className="rounded-sm px-1.5 py-0.5 font-mono text-[10px] tracking-wide text-steel uppercase shadow-border hover:bg-accent"
                     >
                       {copy.purposes[p].name.split(" / ")[0]}
+                    </button>
+                  ))}
+                  {s.funds.map((f) => (
+                    <button
+                      key={f}
+                      type="button"
+                      onClick={() => {
+                        setFundFilter(f);
+                        setOpenFund(f);
+                      }}
+                      className="rounded-sm px-1.5 py-0.5 font-mono text-[10px] tracking-wide text-warn uppercase shadow-border hover:bg-accent"
+                    >
+                      {copy.funds[f].name.split(" / ")[0]}
                     </button>
                   ))}
                 </div>

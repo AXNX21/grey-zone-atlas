@@ -74,3 +74,56 @@ export const CENSUS_PURPOSE_GRADE: Record<CensusPurposeId, Likelihood> = {
   politics: "high",
   recruitment: "high",
 };
+
+/**
+ * Who pays. Membership is the default. Foreign payroll and Gulf concrete
+ * are the command problem. Danish public money is the own-goal.
+ */
+export const CENSUS_FUND_IDS = [
+  "membership",
+  "diyanet",
+  "qatar",
+  "iran",
+  "saudi",
+  "kuwait",
+  "danish-public",
+  "dark",
+] as const;
+
+export type CensusFundId = (typeof CENSUS_FUND_IDS)[number];
+
+export const CENSUS_FUND_GRADE: Record<CensusFundId, Likelihood> = {
+  membership: "confirmed",
+  diyanet: "confirmed",
+  qatar: "confirmed",
+  iran: "high",
+  saudi: "high",
+  kuwait: "confirmed",
+  "danish-public": "confirmed",
+  dark: "moderate",
+};
+
+export type CensusFundLine = {
+  id: string;
+  year: string;
+  dkk: string;
+  fund: CensusFundId;
+  siteId?: string;
+  grade: Likelihood;
+};
+
+/** Named amounts on the public record. Not a budget of 310 rooms. */
+export const CENSUS_FUND_LINES: CensusFundLine[] = [
+  { id: "qatar-hbkcc", year: "2010–14", dkk: "150m+", fund: "qatar", siteId: "hamad-bin-khalifa", grade: "confirmed" },
+  { id: "qatar-ksf-total", year: "2020", dkk: "~226m", fund: "qatar", siteId: "hamad-bin-khalifa", grade: "high" },
+  { id: "qatar-annual", year: "pledge", dkk: "5m / year", fund: "qatar", siteId: "hamad-bin-khalifa", grade: "high" },
+  { id: "qatar-skive", year: "2010s", dkk: "1.0m", fund: "qatar", grade: "confirmed" },
+  { id: "qatar-skaelskoer", year: "2010s", dkk: "1.3m", fund: "qatar", grade: "confirmed" },
+  { id: "iran-vibevej-loan", year: "2001", dkk: "8.5m", fund: "iran", siteId: "imam-ali", grade: "high" },
+  { id: "iran-build", year: "2015", dkk: "40–50m", fund: "iran", siteId: "imam-ali", grade: "moderate" },
+  { id: "saudi-taiba", year: "2018", dkk: "4.9m", fund: "saudi", siteId: "taiba", grade: "confirmed" },
+  { id: "kuwait-taiba", year: "2019", dkk: "~0.6m", fund: "kuwait", siteId: "taiba", grade: "confirmed" },
+  { id: "icel-kk", year: "2014–24", dkk: "1.5m", fund: "danish-public", siteId: "al-hidayyah", grade: "confirmed" },
+  { id: "diyanet-payroll", year: "ongoing", dkk: "~30 imams", fund: "diyanet", grade: "confirmed" },
+];
+

@@ -1,8 +1,11 @@
 import type { Locale } from "@/lib/i18n/locale";
 import type { Likelihood, Source } from "./types";
-import type { CensusGeoId, CensusPurposeId } from "./census-network";
-export type { CensusGeoId, CensusPurposeId } from "./census-network";
+import type { CensusFundId, CensusGeoId, CensusPurposeId } from "./census-network";
+export type { CensusFundId, CensusGeoId, CensusPurposeId } from "./census-network";
 export {
+  CENSUS_FUND_GRADE,
+  CENSUS_FUND_IDS,
+  CENSUS_FUND_LINES,
   CENSUS_GEO,
   CENSUS_GEO_TOTAL,
   CENSUS_PURPOSE_GRADE,
@@ -122,22 +125,24 @@ export type CensusSite = {
   floor: CensusSiteFloor;
   grade: Likelihood;
   purposes: CensusPurposeId[];
+  funds: CensusFundId[];
 };
 
 /** Rooms that already have a public file. Not a census — the opposite of a census. */
 export const CENSUS_SITES: CensusSite[] = [
-  { id: "nusrat-jahan", year: "1967", city: "Hvidovre", layer: "purpose", floor: "parish", grade: "confirmed", purposes: ["salat", "school", "family"] },
-  { id: "hamad-bin-khalifa", year: "2014", city: "København", layer: "purpose", floor: "transnational", grade: "confirmed", purposes: ["salat", "khutba", "dawa", "school", "foreign", "politics"] },
-  { id: "imam-ali", year: "2015", city: "København", layer: "purpose", floor: "hostile", grade: "high", purposes: ["salat", "khutba", "dawa", "school", "foreign", "politics"] },
-  { id: "fetih-camii", year: "2015", city: "Hedehusene", layer: "purpose", floor: "transnational", grade: "confirmed", purposes: ["salat", "khutba", "school", "welfare", "foreign"] },
-  { id: "grimhoj", year: "2014", city: "Aarhus V", layer: "mapped", floor: "recruitment", grade: "high", purposes: ["salat", "khutba", "dawa", "school", "recruitment", "politics"] },
-  { id: "maskinhuset", year: "2012", city: "København SV", layer: "mapped", floor: "recruitment", grade: "high", purposes: ["salat", "dawa", "recruitment"] },
-  { id: "al-hidayyah", year: "2021", city: "København NV", layer: "mapped", floor: "kinetic", grade: "high", purposes: ["salat", "arbitration", "welfare"] },
-  { id: "tauba", year: "2026", city: "København", layer: "mapped", floor: "kinetic", grade: "moderate", purposes: ["salat", "arbitration"] },
-  { id: "al-faruq", year: "2017", city: "København", layer: "mapped", floor: "hostile", grade: "high", purposes: ["salat", "khutba", "dawa", "politics", "recruitment"] },
-  { id: "vollsmose", year: "2017", city: "Odense", layer: "field", floor: "hostile", grade: "moderate", purposes: ["salat", "dawa", "school", "welfare", "politics"] },
-  { id: "mariam", year: "2016", city: "København", layer: "mapped", floor: "parish", grade: "confirmed", purposes: ["salat", "family"] },
-  { id: "dansk-islamisk", year: "2008", city: "København", layer: "mapped", floor: "transnational", grade: "moderate", purposes: ["salat", "dawa", "school", "politics"] },
+  { id: "nusrat-jahan", year: "1967", city: "Hvidovre", layer: "purpose", floor: "parish", grade: "confirmed", purposes: ["salat", "school", "family"], funds: ["membership"] },
+  { id: "hamad-bin-khalifa", year: "2014", city: "København", layer: "purpose", floor: "transnational", grade: "confirmed", purposes: ["salat", "khutba", "dawa", "school", "foreign", "politics"], funds: ["qatar", "kuwait"] },
+  { id: "imam-ali", year: "2015", city: "København", layer: "purpose", floor: "hostile", grade: "high", purposes: ["salat", "khutba", "dawa", "school", "foreign", "politics"], funds: ["iran"] },
+  { id: "fetih-camii", year: "2015", city: "Hedehusene", layer: "purpose", floor: "transnational", grade: "confirmed", purposes: ["salat", "khutba", "school", "welfare", "foreign"], funds: ["diyanet", "membership"] },
+  { id: "grimhoj", year: "2014", city: "Aarhus V", layer: "mapped", floor: "recruitment", grade: "high", purposes: ["salat", "khutba", "dawa", "school", "recruitment", "politics"], funds: ["membership", "dark"] },
+  { id: "maskinhuset", year: "2012", city: "København SV", layer: "mapped", floor: "recruitment", grade: "high", purposes: ["salat", "dawa", "recruitment"], funds: ["membership", "dark"] },
+  { id: "al-hidayyah", year: "2021", city: "København NV", layer: "mapped", floor: "kinetic", grade: "high", purposes: ["salat", "arbitration", "welfare"], funds: ["danish-public", "membership"] },
+  { id: "tauba", year: "2026", city: "København", layer: "mapped", floor: "kinetic", grade: "moderate", purposes: ["salat", "arbitration"], funds: ["membership"] },
+  { id: "al-faruq", year: "2017", city: "København", layer: "mapped", floor: "hostile", grade: "high", purposes: ["salat", "khutba", "dawa", "politics", "recruitment"], funds: ["membership"] },
+  { id: "vollsmose", year: "2017", city: "Odense", layer: "field", floor: "hostile", grade: "moderate", purposes: ["salat", "dawa", "school", "welfare", "politics"], funds: ["membership"] },
+  { id: "mariam", year: "2016", city: "København", layer: "mapped", floor: "parish", grade: "confirmed", purposes: ["salat", "family"], funds: ["membership"] },
+  { id: "dansk-islamisk", year: "2008", city: "København", layer: "mapped", floor: "transnational", grade: "moderate", purposes: ["salat", "dawa", "school", "politics"], funds: ["membership", "dark"] },
+  { id: "taiba", year: "2018", city: "København", layer: "mapped", floor: "transnational", grade: "confirmed", purposes: ["salat", "khutba", "dawa", "foreign"], funds: ["saudi", "kuwait", "membership"] },
 ];
 
 export type CensusEthnicBloc = "sunni" | "shia" | "other";
@@ -222,6 +227,12 @@ export type CensusCopy = {
   purposeCover: string;
   purposeNetwork: string;
   purposeNamed: string;
+  fundsTitle: string;
+  fundsDek: string;
+  funds: Record<CensusFundId, { name: string; cover: string; network: string }>;
+  fundFilterAll: string;
+  fundLinesTitle: string;
+  fundLineNotes: Record<string, string>;
   sitesTitle: string;
   sitesDek: string;
   sites: Record<string, { name: string; note: string }>;
@@ -461,6 +472,66 @@ const en: CensusCopy = {
   purposeCover: "Cover",
   purposeNetwork: "Network",
   purposeNamed: "{n} named rooms",
+  fundsTitle: "Who pays",
+  fundsDek:
+    "The majority of Danish rooms run on membership fees and local collection — Kühle is right about that, and it is not a smear of every Friday. The command problem sits in the minority that is large enough to matter: Turkish state payroll in ~30 rooms, Qatari concrete in the capital's photograph, Iranian mortgage on Vibevej, Saudi and Kuwaiti embassy gifts, and Danish kommune money that a blood-money room could draw as 'choir and cooking.' Including Diyanet, the foreign-support share sits near France's ~20%. The 2021 anti-democratic donations law is the control case trying to name the rest. Cash and unreported Gulf remain the dark figure.",
+  funds: {
+    membership: {
+      name: "Membership / local collection",
+      cover: "Fees, zakat plates, neighbours in Germany and Sweden. Kühle: the default, and the only model available to most Somali, Pakistani, Bosnian, Afghan rooms.",
+      network: "A flock that pays for its own occupancy is still occupancy. 60% of mapped rooms owned their premises by 2017 — local capital, not a ministry. This is the floor. It is not the sermon-writer.",
+    },
+    diyanet: {
+      name: "Diyanet / Turkish payroll",
+      cover: "Dansk Tyrkisk Islamisk Stiftelse. About 30 rooms. Imams on Turkish visas, salaries from Ankara.",
+      network: "The sermon is a state product. After 2016 the same channel was used to hunt Gülenists on Danish soil. Foreign command as a payroll, not a one-off gift. Confirmed. Half of Kühle's 40% transnational share lives here.",
+    },
+    qatar: {
+      name: "Qatar / PEO",
+      cover: "Hamad bin Khalifa al-Thani via Private Engineering Office: 150 million kroner to Københavns Store Fond, plus a 5 million yearly pledge. Qatar Charity and Kuwaiti Munazzamat al-Dawah as cousins. The foundation also bought rooms in Skive (1.0m) and Skælskør (1.3m).",
+      network: "Soft power as architecture. DIR/FIOE as the Brotherhood franchise that received the bag. Civilstyrelsen files (Kühle 2020): total near 226 million, and by 2020 five of nine board seats resident in Qatar. The emir does not buy a minaret to be a silent landlord.",
+    },
+    iran: {
+      name: "Iran / Ahlul Bait",
+      cover: "Vibevej: 8.5 million kroner loan, 2001, to the Iranian ambassador as mortgagee. Building cost 40–50 million. Architects spoke of 'rich men'; the land registry spoke of the state.",
+      network: "A Shia command node the Folketing has been unable to dissolve. Not a Sunni travel bureau. High for the mortgage; moderate for the full build as a state line. Hostile as foreign-state parish.",
+    },
+    saudi: {
+      name: "Saudi / Muslim World League",
+      cover: "1970s–80s: MWL and Libyan 'Kaldet' paid imams and bought buildings while the lattice was still thin. 2018: Saudi embassy, 4.9 million to Taiba for an 18 million property.",
+      network: "Wahhabi seed capital, then a quieter embassy gift under the 2017 reporting law. Historical confirmed; the present share is a handful of named lines, not a quarter of Sweden's mapped rooms.",
+    },
+    kuwait: {
+      name: "Kuwait / dawa houses",
+      cover: "Munazzamat al-Dawah into HBKCC. ~0.6 million to Taiba in 2019, on the trossamfund form.",
+      network: "Smaller Gulf cheques, same inventory: a room, a school, a debt. Confirmed where reported. Not the Qatari photograph.",
+    },
+    "danish-public": {
+      name: "Danish public money",
+      cover: "Folkeoplysningstilskud, trossamfund tax status, kommune 'choir and cooking.' Al-Hidayyah/ICEL: 1.5 million over ten years. 2026: recognition kept, no clawback.",
+      network: "The own-goal. A blood-money room drew secular activity money and kept it. Recognition is a rights number that becomes a subsidy. Confirmed as a stream. Not the builder of Hamad Bin Khalifa — the cleaner of Al-Hidayyah.",
+    },
+    dark: {
+      name: "Unreported / cash",
+      cover: "The 2017 trossamfund law requires large foreign gifts to be declared. A handful of Muslim societies filed. Cash plates, hawala-adjacent transfers, and gifts under the 20,000-krone anonymity line do not.",
+      network: "The funding dark figure is the cousin of the room dark figure. Moderate as a share of 310. Speculative as a named donor list. The 2021 donations law was written because this column exists.",
+    },
+  },
+  fundFilterAll: "All payers",
+  fundLinesTitle: "Named amounts",
+  fundLineNotes: {
+    "qatar-hbkcc": "Emir's construction gift, through PEO.",
+    "qatar-ksf-total": "Civilstyrelsen files: 150m was not the whole bag.",
+    "qatar-annual": "Running deposit, not a one-off.",
+    "qatar-skive": "KSF onward gift. A capital mosque funds the province.",
+    "qatar-skaelskoer": "KSF onward gift.",
+    "iran-vibevej-loan": "Mortgage to the ambassador. The land registry, not a press line.",
+    "iran-build": "Architects: rich men. Building cost, not a confirmed state wire.",
+    "saudi-taiba": "Embassy gift on the 2017 form.",
+    "kuwait-taiba": "Second Gulf cheque, same room.",
+    "icel-kk": "Københavns Kommune, choir and cooking. Kept in 2026.",
+    "diyanet-payroll": "Not concrete. The sermon, every Friday.",
+  },
   sitesTitle: "Named rooms on the public record",
   sitesDek:
     "A register does not exist, so the field has photographs. These are not a sample of 310. They are the rooms a newspaper, a police count, or a mapping already named. Filter by floor. Parish rooms stay on the page so the ledger does not become a hit list. Kinetic names are a handful — which is why 40% as caches stays speculative.",
@@ -512,6 +583,10 @@ const en: CensusCopy = {
     "dansk-islamisk": {
       name: "Dansk Islamisk Center",
       note: "Mixed Sunni room in Kühle's nine. Often read as Brotherhood-adjacent dawa. Moderate: the link is argued, not a membership card.",
+    },
+    taiba: {
+      name: "Taiba Mosque",
+      note: "Saudi embassy, 4.9 million kroner in 2018, toward an 18 million property. Kuwait ~0.6 million in 2019. The 2017 reporting law working as designed — and still only a handful of societies filed.",
     },
   },
   siteFilterAll: "All named",
@@ -659,6 +734,31 @@ const en: CensusCopy = {
       title: "Tauba-moskéen, jagtkniv, drabsforsøg",
       publisher: "Østre Landsret reporting",
       date: "2026",
+    },
+    {
+      title: "Finansiering af moskéer i Danmark",
+      publisher: "Kühle & Larsen, Kristeligt Dagblad",
+      date: "2019",
+    },
+    {
+      title: "“Den der betaler musikken”: Qatar, Københavns Store Fond, Civilstyrelsen",
+      publisher: "Lene Kühle, Religion i Danmark",
+      date: "2020",
+    },
+    {
+      title: "Trossamfundsloven — reported foreign donations (Taiba / Saudi embassy; Kuwait; Islamisk Forbund)",
+      publisher: "Kirkeministeriet / Civilstyrelsen filings",
+      date: "2017–2019",
+    },
+    {
+      title: "Lov om antidemokratiske donationer",
+      publisher: "Folketinget",
+      date: "2021",
+    },
+    {
+      title: "Iranian mortgage on Vibevej / Imam Ali",
+      publisher: "Weekendavisen / Kristeligt Dagblad; Folketinget S 8",
+      date: "2009 / 2024",
     },
   ],
 };
@@ -886,6 +986,66 @@ const da: CensusCopy = {
   purposeCover: "Dække",
   purposeNetwork: "Netværk",
   purposeNamed: "{n} navngivne rum",
+  fundsTitle: "Hvem betaler",
+  fundsDek:
+    "Flertallet af danske rum kører på kontingent og lokal indsamling — Kühle har ret i det, og det er ikke en tilsvining af hver fredag. Kommando-problemet sidder i mindretallet, der er stort nok til at tælle: tyrkisk statsløn i ~30 rum, qatarisk beton i hovedstadens fotografi, iransk pant på Vibevej, saudiske og kuwaitiske ambassadegaver, og danske kommunekroner som et blodpenge-rum kunne trække som 'korsang og madlavning.' Inklusive Diyanet ligger den udenlandske støtteandel nær Frankrigs ~20%. Loven fra 2021 om antidemokratiske donationer er kontrolcasen, der forsøger at navngive resten. Kontanter og uanmeldt Golf er mørketallet.",
+  funds: {
+    membership: {
+      name: "Kontingent / lokal indsamling",
+      cover: "Kontingent, zakat-tallerkener, naboer i Tyskland og Sverige. Kühle: standarden, og den eneste model de fleste somaliske, pakistanske, bosniske, afghanske rum har.",
+      network: "En flok, der betaler sin egen belægning, er stadig belægning. 60% af de kortlagte rum ejede lokalerne i 2017 — lokal kapital, ikke et ministerium. Dette er gulvet. Det er ikke prædikenskriveren.",
+    },
+    diyanet: {
+      name: "Diyanet / tyrkisk løn",
+      cover: "Dansk Tyrkisk Islamisk Stiftelse. Omkring 30 rum. Imamer på tyrkiske visa, løn fra Ankara.",
+      network: "Prædikenen er et statsprodukt. Efter 2016 blev den samme kanal brugt til at jage gülenister på dansk jord. Fremmed kommando som lønudbetaling, ikke en engangsgave. Bekræftet. Halvdelen af Kühles 40% transnationale andel bor her.",
+    },
+    qatar: {
+      name: "Qatar / PEO",
+      cover: "Hamad bin Khalifa al-Thani via Private Engineering Office: 150 millioner kroner til Københavns Store Fond, plus et årligt tilsagn på 5 millioner. Qatar Charity og kuwaitiske Munazzamat al-Dawah som fætre. Fonden købte også rum i Skive (1,0 mio.) og Skælskør (1,3 mio.).",
+      network: "Blød magt som arkitektur. DIR/FIOE som Broderskabs-franchisen, der tog posen. Civilstyrelsen-akter (Kühle 2020): total nær 226 millioner, og i 2020 fem af ni bestyrelsesposter bosat i Qatar. Emiren køber ikke en minaret for at være stille udlejer.",
+    },
+    iran: {
+      name: "Iran / Ahlul Bait",
+      cover: "Vibevej: lån på 8,5 millioner kroner, 2001, til den iranske ambassadør som panthaver. Byggeomkostning 40–50 millioner. Arkitekter talte om 'rigmænd'; tinglysningen talte om staten.",
+      network: "En shia-kommandoknude, Folketinget ikke har kunnet opløse. Ikke et sunnitisk rejsebureau. Høj for pantet; moderat for hele byggeriet som statslinje. Fjendtlig som fremmedstatsligt sogn.",
+    },
+    saudi: {
+      name: "Saudi / Den Muslimske Verdensliga",
+      cover: "1970'erne–80'erne: MWL og libyske 'Kaldet' betalte imamer og købte bygninger, mens gitteret stadig var tyndt. 2018: saudisk ambassade, 4,9 millioner til Taiba til en ejendom til 18 millioner.",
+      network: "Wahhabitisk såkapital, derefter en stillere ambassadegave under indberetningsloven fra 2017. Historisk bekræftet; den nuværende andel er et håndfuld navngivne linjer, ikke en fjerdedel af Sveriges kortlagte rum.",
+    },
+    kuwait: {
+      name: "Kuwait / dawa-huse",
+      cover: "Munazzamat al-Dawah ind i HBKCC. ~0,6 millioner til Taiba i 2019, på trossamfundsblanketten.",
+      network: "Mindre Golf-cheks, samme inventar: et rum, en skole, en gæld. Bekræftet hvor indberettet. Ikke det qatariske fotografi.",
+    },
+    "danish-public": {
+      name: "Danske offentlige penge",
+      cover: "Folkeoplysningstilskud, trossamfunds-skattestatus, kommunal 'korsang og madlavning.' Al-Hidayyah/ICEL: 1,5 millioner over ti år. 2026: anerkendelse bevaret, intet tilbagekrav.",
+      network: "Selvmålet. Et blodpenge-rum trak penge til verdslig aktivitet og beholdt dem. Anerkendelse er et rettighedstal, der bliver et tilskud. Bekræftet som strøm. Ikke byggeren af Hamad Bin Khalifa — rengøringen af Al-Hidayyah.",
+    },
+    dark: {
+      name: "Uanmeldt / kontant",
+      cover: "Trossamfundsloven 2017 kræver store udenlandske gaver indberettet. Et håndfuld muslimske samfund gjorde det. Kontant-tallerkener, hawala-nære overførsler og gaver under 20.000-kroners anonymitetslinjen gør det ikke.",
+      network: "Finansieringens mørketal er fætter til rummenes mørketal. Moderat som andel af 310. Spekulativt som navngivet donorliste. Donationsloven 2021 blev skrevet, fordi denne kolonne findes.",
+    },
+  },
+  fundFilterAll: "Alle betalere",
+  fundLinesTitle: "Navngivne beløb",
+  fundLineNotes: {
+    "qatar-hbkcc": "Emirens byggerigave, via PEO.",
+    "qatar-ksf-total": "Civilstyrelsen-akter: 150 mio. var ikke hele posen.",
+    "qatar-annual": "Løbende indskud, ikke engangs.",
+    "qatar-skive": "KSF videregave. En hovedstadsmoské finansierer provinsen.",
+    "qatar-skaelskoer": "KSF videregave.",
+    "iran-vibevej-loan": "Pant til ambassadøren. Tinglysningen, ikke en presselinje.",
+    "iran-build": "Arkitekter: rigmænd. Byggepris, ikke en bekræftet statsoverførsel.",
+    "saudi-taiba": "Ambassadegave på 2017-blanketten.",
+    "kuwait-taiba": "Andet Golf-check, samme rum.",
+    "icel-kk": "Københavns Kommune, korsang og madlavning. Beholdt i 2026.",
+    "diyanet-payroll": "Ikke beton. Prædikenen, hver fredag.",
+  },
   sitesTitle: "Navngivne rum på den offentlige sag",
   sitesDek:
     "Et register findes ikke, så felten har fotografier. Disse er ikke et udsnit af 310. De er rum, en avis, et politital eller en kortlægning allerede har navngivet. Filtrér på etage. Sognerum bliver på siden, så protokollen ikke bliver en hitliste. Kinetiske navne er et håndfuld — derfor forbliver 40% som lagre spekulativt.",
@@ -937,6 +1097,10 @@ const da: CensusCopy = {
     "dansk-islamisk": {
       name: "Dansk Islamisk Center",
       note: "Blandet sunniterum i Kühles ni. Ofte læst som Broderskabs-nær dawa. Moderat: linket er argumenteret, ikke et medlemskort.",
+    },
+    taiba: {
+      name: "Taiba-moskéen",
+      note: "Saudisk ambassade, 4,9 millioner kroner i 2018, til en ejendom til 18 millioner. Kuwait ~0,6 millioner i 2019. Indberetningsloven 2017 virker som designet — og stadig kun et håndfuld samfund indberettede.",
     },
   },
   siteFilterAll: "Alle navngivne",
