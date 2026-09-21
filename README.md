@@ -4,7 +4,7 @@ An encyclopedia of the interior hybrid war in Europe: mass settlement, counter-l
 
 **Edition 0.10.0** · published 21 Sep 2026, 12:36 CEST
 
-**Owned, written and produced by [AXION NEXUS 21](https://github.com/AXNX21) (AXNX21).**
+**Owned, written and produced by [AXION NEXUS 21](https://axnx21.com/) (AXNX21).**
 
 Danish and English are first-class. Locale is stored in `localStorage` and in `?lang=`.
 

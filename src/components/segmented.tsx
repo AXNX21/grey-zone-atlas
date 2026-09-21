@@ -21,7 +21,7 @@ export function SegmentedControl<T extends string>({
     <div
       role="group"
       aria-label={ariaLabel}
-      className="flex h-11 w-full items-stretch overflow-hidden rounded-md shadow-border"
+      className="flex h-7 w-full items-stretch overflow-hidden rounded-sm shadow-border"
     >
       {items.map((item) => {
         const on = value === item.id;
@@ -34,7 +34,7 @@ export function SegmentedControl<T extends string>({
             title={item.aria ?? item.label}
             onClick={() => onChange(item.id)}
             className={cn(
-              "inline-flex min-w-0 flex-1 items-center justify-center px-1.5 font-mono text-[10px] tracking-[0.14em] uppercase transition-colors",
+              "inline-flex min-w-0 flex-1 items-center justify-center px-1 font-mono text-[10px] tracking-[0.12em] uppercase transition-colors",
               on
                 ? "bg-accent text-foreground"
                 : "text-faint hover:bg-accent/70 hover:text-foreground",

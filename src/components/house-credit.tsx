@@ -49,7 +49,7 @@ export function HouseWidget({ className }: { className?: string }) {
       target="_blank"
       rel="noreferrer"
       className={cn(
-        "flex min-h-11 items-center gap-2.5 rounded-md px-1 py-1 text-left transition-colors hover:bg-accent/70",
+        "flex items-center gap-2.5 rounded-md px-0.5 py-1 text-left transition-colors hover:bg-accent/70",
         className,
       )}
       aria-label={`${HOUSE.name} — ${t.houseRoles}`}
@@ -61,6 +61,9 @@ export function HouseWidget({ className }: { className?: string }) {
         </span>
         <span className="block truncate font-mono text-[10px] tracking-wide text-faint uppercase">
           {t.houseRoles}
+        </span>
+        <span className="block truncate font-mono text-[10px] tracking-wide text-faint">
+          axnx21.com
         </span>
       </span>
     </a>
