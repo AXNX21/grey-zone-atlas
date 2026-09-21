@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { AttributionBadge } from "@/components/attribution-badge";
 import { Badge } from "@/components/ui/badge";
+import { MosqueMap } from "@/components/mosque-map";
 import {
   CENSUS_BOUNDS,
   CENSUS_CONTROL_N,
@@ -11,6 +12,8 @@ import {
   CENSUS_ETHNIC_TOTAL,
   CENSUS_FLOORS,
   CENSUS_NOW_YEAR,
+  CENSUS_PURPOSE_GRADE,
+  CENSUS_PURPOSE_IDS,
   CENSUS_SERIES,
   CENSUS_SITES,
   cagr,
@@ -19,7 +22,7 @@ import {
   inclusiveFromMapped,
   shareOf,
 } from "@/lib/atlas/census";
-import type { CensusEthnicBloc, CensusFloorId, CensusLayerId, CensusSiteFloor } from "@/lib/atlas/census";
+import type { CensusEthnicBloc, CensusFloorId, CensusLayerId, CensusPurposeId, CensusSiteFloor } from "@/lib/atlas/census";
 import { useAtlas } from "@/lib/atlas";
 import { interpolate, useT } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
@@ -47,6 +50,8 @@ export function MosqueCensus() {
   const [fieldShare, setFieldShare] = useState(CENSUS_DEFAULTS.fieldShare);
   const [openFloor, setOpenFloor] = useState<CensusFloorId | "">("hostile");
   const [siteFilter, setSiteFilter] = useState<CensusSiteFloor | "all">("all");
+  const [purposeFilter, setPurposeFilter] = useState<CensusPurposeId | "all">("all");
+  const [openPurpose, setOpenPurpose] = useState<CensusPurposeId | "">("dawa");
 
   const inclusive = inclusiveFromDemo(pop, catchment);
   const fromMapped = inclusiveFromMapped(CENSUS_DEFAULTS.mapped, darkRatio);
@@ -89,7 +94,11 @@ export function MosqueCensus() {
   ].join(" ");
 
   const ethnicMax = Math.max(...CENSUS_ETHNIC_2017.map((e) => e.n));
-  const named = CENSUS_SITES.filter((s) => siteFilter === "all" || s.floor === siteFilter);
+  const named = CENSUS_SITES.filter(
+    (s) =>
+      (siteFilter === "all" || s.floor === siteFilter) &&
+      (purposeFilter === "all" || s.purposes.includes(purposeFilter)),
+  );
 
   const reset = () => {
     setPop(CENSUS_DEFAULTS.muslimPop);
@@ -247,6 +256,8 @@ export function MosqueCensus() {
         </div>
       </section>
 
+      <MosqueMap />
+
       <section>
         <h2 className="font-display text-2xl">{copy.layersTitle}</h2>
         <ul className="mt-4 grid gap-3 lg:grid-cols-2">
@@ -257,6 +268,66 @@ export function MosqueCensus() {
             </li>
           ))}
         </ul>
+      </section>
+
+      <section>
+        <h2 className="font-display text-2xl">{copy.purposesTitle}</h2>
+        <p className="mt-2 max-w-2xl text-sm text-muted-foreground">{copy.purposesDek}</p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          {(["all", ...CENSUS_PURPOSE_IDS] as const).map((id) => {
+            const label = id === "all" ? copy.purposeFilterAll : copy.purposes[id].name.split(" / ")[0];
+            const on = purposeFilter === id;
+            return (
+              <button
+                key={id}
+                type="button"
+                onClick={() => {
+                  setPurposeFilter(id);
+                  if (id !== "all") setOpenPurpose(id);
+                }}
+                className={cn(
+                  "inline-flex h-9 items-center rounded-md px-3 text-xs",
+                  on ? "bg-primary text-primary-foreground" : "text-muted-foreground shadow-border hover:bg-accent hover:text-foreground",
+                )}
+              >
+                {label}
+              </button>
+            );
+          })}
+        </div>
+        <div className="mt-4 flex flex-col gap-2">
+          {CENSUS_PURPOSE_IDS.map((id) => {
+            const text = copy.purposes[id];
+            const on = openPurpose === id;
+            const n = CENSUS_SITES.filter((s) => s.purposes.includes(id)).length;
+            return (
+              <article key={id} className="rounded-xl bg-card shadow-border">
+                <button
+                  type="button"
+                  aria-expanded={on}
+                  onClick={() => setOpenPurpose(on ? "" : id)}
+                  className="flex min-h-12 w-full items-center gap-3 px-4 py-2.5 text-left"
+                >
+                  <span className="flex-1">
+                    <span className="block font-display text-lg leading-snug">{text.name}</span>
+                    <span className="mt-1 block font-mono text-[10px] tracking-wider text-faint uppercase">
+                      {interpolate(copy.purposeNamed, { n })}
+                    </span>
+                  </span>
+                  <AttributionBadge level={CENSUS_PURPOSE_GRADE[id]} />
+                </button>
+                {on ? (
+                  <div className="border-t border-border px-4 py-4">
+                    <p className="font-mono text-[10px] tracking-[0.14em] text-faint uppercase">{copy.purposeCover}</p>
+                    <p className="mt-1 text-sm text-muted-foreground">{text.cover}</p>
+                    <p className="mt-3 font-mono text-[10px] tracking-[0.14em] text-faint uppercase">{copy.purposeNetwork}</p>
+                    <p className="mt-1 text-sm text-foreground/90">{text.network}</p>
+                  </div>
+                ) : null}
+              </article>
+            );
+          })}
+        </div>
       </section>
 
       <section>
@@ -349,6 +420,21 @@ export function MosqueCensus() {
                 <p className="font-mono text-[10px] tracking-wider text-faint uppercase">
                   {copy.siteFilters[s.floor]}
                 </p>
+                <div className="flex flex-wrap gap-1.5">
+                  {s.purposes.map((p) => (
+                    <button
+                      key={p}
+                      type="button"
+                      onClick={() => {
+                        setPurposeFilter(p);
+                        setOpenPurpose(p);
+                      }}
+                      className="rounded-sm px-1.5 py-0.5 font-mono text-[10px] tracking-wide text-steel uppercase shadow-border hover:bg-accent"
+                    >
+                      {copy.purposes[p].name.split(" / ")[0]}
+                    </button>
+                  ))}
+                </div>
                 <p className="text-sm text-muted-foreground">{text?.note}</p>
               </li>
             );

@@ -2,7 +2,7 @@
 
 An encyclopedia of the interior hybrid war in Europe: mass settlement, counter-legislation, universities, mass media, and public service. Denmark is the control case. Attribution is graded. Convergence is not a conspiracy.
 
-**Edition 0.10.0** · published 21 Sep 2026, 12:36 CEST
+**Edition 0.11.0** · published 21 Sep 2026, 17:33 CEST
 
 **Owned, written and produced by [AXION NEXUS 21](https://axnx21.com/) (AXNX21).**
 

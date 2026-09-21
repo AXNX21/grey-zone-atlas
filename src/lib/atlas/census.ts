@@ -1,5 +1,13 @@
 import type { Locale } from "@/lib/i18n/locale";
 import type { Likelihood, Source } from "./types";
+import type { CensusGeoId, CensusPurposeId } from "./census-network";
+export type { CensusGeoId, CensusPurposeId } from "./census-network";
+export {
+  CENSUS_GEO,
+  CENSUS_GEO_TOTAL,
+  CENSUS_PURPOSE_GRADE,
+  CENSUS_PURPOSE_IDS,
+} from "./census-network";
 
 /** Shared arithmetic. Copy lives in censusCopy(). */
 export const CENSUS_DEFAULTS = {
@@ -113,22 +121,23 @@ export type CensusSite = {
   layer: CensusLayerId;
   floor: CensusSiteFloor;
   grade: Likelihood;
+  purposes: CensusPurposeId[];
 };
 
 /** Rooms that already have a public file. Not a census — the opposite of a census. */
 export const CENSUS_SITES: CensusSite[] = [
-  { id: "nusrat-jahan", year: "1967", city: "Hvidovre", layer: "purpose", floor: "parish", grade: "confirmed" },
-  { id: "hamad-bin-khalifa", year: "2014", city: "København", layer: "purpose", floor: "transnational", grade: "confirmed" },
-  { id: "imam-ali", year: "2015", city: "København", layer: "purpose", floor: "hostile", grade: "high" },
-  { id: "fetih-camii", year: "2015", city: "Hedehusene", layer: "purpose", floor: "transnational", grade: "confirmed" },
-  { id: "grimhoj", year: "2014", city: "Aarhus V", layer: "mapped", floor: "recruitment", grade: "high" },
-  { id: "maskinhuset", year: "2012", city: "København SV", layer: "mapped", floor: "recruitment", grade: "high" },
-  { id: "al-hidayyah", year: "2021", city: "København NV", layer: "mapped", floor: "kinetic", grade: "high" },
-  { id: "tauba", year: "2026", city: "København", layer: "mapped", floor: "kinetic", grade: "moderate" },
-  { id: "al-faruq", year: "2017", city: "København", layer: "mapped", floor: "hostile", grade: "high" },
-  { id: "vollsmose", year: "2017", city: "Odense", layer: "field", floor: "hostile", grade: "moderate" },
-  { id: "mariam", year: "2016", city: "København", layer: "mapped", floor: "parish", grade: "confirmed" },
-  { id: "dansk-islamisk", year: "2008", city: "København", layer: "mapped", floor: "transnational", grade: "moderate" },
+  { id: "nusrat-jahan", year: "1967", city: "Hvidovre", layer: "purpose", floor: "parish", grade: "confirmed", purposes: ["salat", "school", "family"] },
+  { id: "hamad-bin-khalifa", year: "2014", city: "København", layer: "purpose", floor: "transnational", grade: "confirmed", purposes: ["salat", "khutba", "dawa", "school", "foreign", "politics"] },
+  { id: "imam-ali", year: "2015", city: "København", layer: "purpose", floor: "hostile", grade: "high", purposes: ["salat", "khutba", "dawa", "school", "foreign", "politics"] },
+  { id: "fetih-camii", year: "2015", city: "Hedehusene", layer: "purpose", floor: "transnational", grade: "confirmed", purposes: ["salat", "khutba", "school", "welfare", "foreign"] },
+  { id: "grimhoj", year: "2014", city: "Aarhus V", layer: "mapped", floor: "recruitment", grade: "high", purposes: ["salat", "khutba", "dawa", "school", "recruitment", "politics"] },
+  { id: "maskinhuset", year: "2012", city: "København SV", layer: "mapped", floor: "recruitment", grade: "high", purposes: ["salat", "dawa", "recruitment"] },
+  { id: "al-hidayyah", year: "2021", city: "København NV", layer: "mapped", floor: "kinetic", grade: "high", purposes: ["salat", "arbitration", "welfare"] },
+  { id: "tauba", year: "2026", city: "København", layer: "mapped", floor: "kinetic", grade: "moderate", purposes: ["salat", "arbitration"] },
+  { id: "al-faruq", year: "2017", city: "København", layer: "mapped", floor: "hostile", grade: "high", purposes: ["salat", "khutba", "dawa", "politics", "recruitment"] },
+  { id: "vollsmose", year: "2017", city: "Odense", layer: "field", floor: "hostile", grade: "moderate", purposes: ["salat", "dawa", "school", "welfare", "politics"] },
+  { id: "mariam", year: "2016", city: "København", layer: "mapped", floor: "parish", grade: "confirmed", purposes: ["salat", "family"] },
+  { id: "dansk-islamisk", year: "2008", city: "København", layer: "mapped", floor: "transnational", grade: "moderate", purposes: ["salat", "dawa", "school", "politics"] },
 ];
 
 export type CensusEthnicBloc = "sunni" | "shia" | "other";
@@ -201,6 +210,18 @@ export type CensusCopy = {
   ethnic: Record<string, { name: string; note: string }>;
   ethnicBlocs: Record<CensusEthnicBloc, string>;
   ethnicTotal: string;
+  mapTitle: string;
+  mapDek: string;
+  mapGrade: string;
+  mapTotal: string;
+  geo: Record<CensusGeoId, { name: string; note: string }>;
+  purposesTitle: string;
+  purposesDek: string;
+  purposes: Record<CensusPurposeId, { name: string; cover: string; network: string }>;
+  purposeFilterAll: string;
+  purposeCover: string;
+  purposeNetwork: string;
+  purposeNamed: string;
   sitesTitle: string;
   sitesDek: string;
   sites: Record<string, { name: string; note: string }>;
@@ -334,6 +355,112 @@ const en: CensusCopy = {
   },
   ethnicBlocs: { sunni: "Sunni 138", shia: "Shia 20", other: "Ahmadiyya 2" },
   ethnicTotal: "{n} identified rooms",
+  mapTitle: "The operative map",
+  mapDek:
+    "The rooms are not scattered weather. They sit where the flock sits: the capital first, then Aarhus, then Odense, then the Jutland and Zealand towns that received family reunification and 2015. This is a working geography of the mapped 185 — moderate as a regional split, confirmed as capital-heavy. Inclusive basements follow the same gravity. A mosque in this atlas is a node. The map is the network on Danish soil.",
+  mapGrade: "Field geography of the mapped layer. Not a pin for every musalla.",
+  mapTotal: "{n} mapped across the lattice",
+  geo: {
+    copenhagen: {
+      name: "Capital",
+      note: "Nørrebro, NV, SV, Ishøj, Hvidovre, Hedehusene. Qatar's photograph, the Iranian parish, HuT's shop window, the women's room, the blood-money room. The densest lattice.",
+    },
+    nordsjaelland: {
+      name: "North Zealand",
+      note: "Helsingør, Hillerød, the commuting parish. Smaller rooms, same jobs.",
+    },
+    sjaelland: {
+      name: "Zealand",
+      note: "Køge, Roskilde, Næstved, the provincial Friday. Opened after the guest-worker years and again after 2015.",
+    },
+    lolland: {
+      name: "Lolland–Falster",
+      note: "Thin on the map, not empty. Rural rooms are still rooms.",
+    },
+    odense: {
+      name: "Funen / Odense",
+      note: "Vollsmose as the named quarter. A parallel parish with school, welfare, and street — not a travel bureau on the Grimhøj scale, and not a social club.",
+    },
+    aarhus: {
+      name: "East Jutland / Aarhus",
+      note: "Grimhøj as travel bureau. Gellerup and Brabrand as the surrounding pool. The readable recruitment node of the Danish file.",
+    },
+    aalborg: {
+      name: "North Jutland / Aalborg",
+      note: "Diyanet and ethnic parish as the default. The sermon still answers abroad.",
+    },
+    trekanten: {
+      name: "Triangle / Kolding–Vejle–Horsens",
+      note: "Industrial Jutland's Friday. Guest-worker origin, family-reunion scale.",
+    },
+    vestjylland: {
+      name: "West Jutland",
+      note: "Herning, Holstebro, the small-town musalla. Easy to miss. Still a node.",
+    },
+    esbjerg: {
+      name: "Esbjerg / south-west",
+      note: "Port town parish. Turkish and Arab rooms, same inventory.",
+    },
+  },
+  purposesTitle: "What the rooms are for",
+  purposesDek:
+    "A mosque is not only a place one prays. In the operative network it is occupancy, sermon, school, welfare, family law, foreign command, and — in a named handful — a travel bureau. The cover is salat. The jobs below are why the undercount is a campaign and not a statistics gap. Filter the named rooms by job.",
+  purposes: {
+    salat: {
+      name: "Salat / occupancy",
+      cover: "The five prayers and the Friday congregation. The definition Kühle used: a room with public salat at least weekly.",
+      network: "Occupancy of Danish soil. A regular Friday is a flag. Basements count. This is the layer the register refuses to make.",
+    },
+    khutba: {
+      name: "Khutba / the sermon",
+      cover: "Religious instruction at Friday prayer. Language of origin, sometimes a Danish résumé.",
+      network: "Political instruction under a religious heading. Who may be named, who may be hated, which law is higher. The Diyanet sermon is written in Ankara. The Salafi kitchen skips the résumé.",
+    },
+    dawa: {
+      name: "Dawa / mission",
+      cover: "Invitation to Islam. Outreach, conversion classes, 'dialogue.'",
+      network: "Identity capture. Qaradawi's conquest-by-dawa, run as a parish programme. Brotherhood-adjacent rooms treat the neighbourhood as a harvest. Confirmed as function; the franchise varies.",
+    },
+    school: {
+      name: "School / next generation",
+      cover: "Quran school, weekend Arabic, homework café, youth club.",
+      network: "The long hold. Children learn a legal order and a history that does not answer to Folkeskolen. Parallel formation is the point, not a side effect.",
+    },
+    welfare: {
+      name: "Welfare / parallel parish",
+      cover: "Zakat, food parcels, burial funds, women's groups, 'integration' cafés.",
+      network: "A social state that does not run through the kommune. Loyalty follows the hand that pays. Diyanet and Brotherhood both know this. High as function, not as a budget line.",
+    },
+    family: {
+      name: "Family / civil status",
+      cover: "Nikah, funeral, conversion papers, counselling.",
+      network: "Who may marry whom, under which law, with whose witnesses. The Danish state records a wedding. The room records a contract. Two certificates, one monopoly.",
+    },
+    arbitration: {
+      name: "Arbitration / local law",
+      cover: "Mediation, sulh, 'conflict resolution' inside the flock.",
+      network: "Blood-money, gender apartheid as policy, the quarter that does not call the police. Al-Hidayyah is the named room. Moderate as a share of 310; high as a capability where it sits.",
+    },
+    foreign: {
+      name: "Foreign command",
+      cover: "A national parish: Turkish, Pakistani, Iranian, Qatari, Bosnian.",
+      network: "Imam salaries, construction money, and the sermon answering to Ankara, Tehran, Doha, or Lahore. Kühle: ~40% of identified rooms tied to a transnational organisation. Confirmed. Imam Ali is the Iranian case the Folketing cannot dissolve.",
+    },
+    politics: {
+      name: "Politics / the street",
+      cover: "Petitions, 'anti-racism', Palestine rallies, voter drives.",
+      network: "Mobilisation of the flock as a bloc. The mosque is the noticeboard and the bus. HuT uses the minbar as a shop window. Capital rooms turn out the street on cue.",
+    },
+    recruitment: {
+      name: "Recruitment / travel bureau",
+      cover: "Study circle, brotherhood, 'humanitarian' convoy.",
+      network: "The pool for Syria, and for whatever is next. Grimhøj as the readable node (~22 of ~100 travellers). Maskinhuset and Copenhagen Salafi kitchens as cousins. High for the named handful. Not two-fifths of 310.",
+    },
+  },
+  purposeFilterAll: "All jobs",
+  purposeCover: "Cover",
+  purposeNetwork: "Network",
+  purposeNamed: "{n} named rooms",
   sitesTitle: "Named rooms on the public record",
   sitesDek:
     "A register does not exist, so the field has photographs. These are not a sample of 310. They are the rooms a newspaper, a police count, or a mapping already named. Filter by floor. Parish rooms stay on the page so the ledger does not become a hit list. Kinetic names are a handful — which is why 40% as caches stays speculative.",
@@ -653,6 +780,112 @@ const da: CensusCopy = {
   },
   ethnicBlocs: { sunni: "Sunni 138", shia: "Shia 20", other: "Ahmadiyya 2" },
   ethnicTotal: "{n} identificerede rum",
+  mapTitle: "Det operative kort",
+  mapDek:
+    "Rummene er ikke spredt vejr. De sidder, hvor flokken sidder: hovedstaden først, så Aarhus, så Odense, så de jyske og sjællandske byer, der tog familiesammenføring og 2015. Dette er en arbejdende geografi af de kortlagte 185 — moderat som regionalt split, bekræftet som hovedstads-tungt. Inklusive kældre følger samme tyngde. En moské i dette atlas er en knude. Kortet er netværket på dansk jord.",
+  mapGrade: "Feltgeografi af det kortlagte lag. Ikke en nål for hver musalla.",
+  mapTotal: "{n} kortlagt over gitteret",
+  geo: {
+    copenhagen: {
+      name: "Hovedstaden",
+      note: "Nørrebro, NV, SV, Ishøj, Hvidovre, Hedehusene. Qatars fotografi, det iranske sogn, HuT's udstillingsvindue, kvinderummet, blodpenge-rummet. Det tætteste gitter.",
+    },
+    nordsjaelland: {
+      name: "Nordsjælland",
+      note: "Helsingør, Hillerød, pendler-sognet. Mindre rum, samme jobs.",
+    },
+    sjaelland: {
+      name: "Sjælland",
+      note: "Køge, Roskilde, Næstved, den provinsielle fredag. Åbnet efter gæstearbejderårene og igen efter 2015.",
+    },
+    lolland: {
+      name: "Lolland–Falster",
+      note: "Tyndt på kortet, ikke tomt. Landområderum er stadig rum.",
+    },
+    odense: {
+      name: "Fyn / Odense",
+      note: "Vollsmose som det navngivne kvarter. Et parallelt sogn med skole, velfærd og gade — ikke et rejsebureau i Grimhøj-skala, og ikke en social klub.",
+    },
+    aarhus: {
+      name: "Østjylland / Aarhus",
+      note: "Grimhøj som rejsebureau. Gellerup og Brabrand som den omgivende pool. Den læsbare rekrutteringsknude i den danske fil.",
+    },
+    aalborg: {
+      name: "Nordjylland / Aalborg",
+      note: "Diyanet og etnisk sogn som standard. Prædikenen svarer stadig udefra.",
+    },
+    trekanten: {
+      name: "Trekanten / Kolding–Vejle–Horsens",
+      note: "Det industrielle Jyllands fredag. Gæstearbejder-oprindelse, familiesammenførings-skala.",
+    },
+    vestjylland: {
+      name: "Vestjylland",
+      note: "Herning, Holstebro, den lille bys musalla. Let at overse. Stadig en knude.",
+    },
+    esbjerg: {
+      name: "Esbjerg / sydvest",
+      note: "Havneby-sogn. Tyrkiske og arabiske rum, samme inventar.",
+    },
+  },
+  purposesTitle: "Hvad rummene er til",
+  purposesDek:
+    "En moské er ikke kun et sted, man beder. I det operative netværk er den belægning, prædiken, skole, velfærd, familieret, fremmed kommando og — i et navngivet håndfuld — et rejsebureau. Dækket er salat. Jobbene nedenunder er derfor, at undertællingen er en kampagne og ikke et statistikhul. Filtrér de navngivne rum efter job.",
+  purposes: {
+    salat: {
+      name: "Salat / belægning",
+      cover: "De fem bønner og fredagsmenigheden. Den definition Kühle brugte: et rum med offentlig salat mindst ugentligt.",
+      network: "Belægning af dansk jord. En fast fredag er et flag. Kældre tæller. Dette er laget, registret nægter at lave.",
+    },
+    khutba: {
+      name: "Khutba / prædikenen",
+      cover: "Religiøs undervisning til fredagsbøn. Oprindelsessprog, undertiden et dansk resumé.",
+      network: "Politisk instruktion under en religiøs overskrift. Hvem der må nævnes, hvem der må hades, hvilken lov der er højere. Diyanet-prædikenen skrives i Ankara. Det salafistiske køkken springer resuméet over.",
+    },
+    dawa: {
+      name: "Dawa / mission",
+      cover: "Invitation til islam. Opsøgende arbejde, konvertitklasser, 'dialog.'",
+      network: "Identitetserobring. Qaradawis erobring-via-dawa, kørt som sognsprogram. Broderskabs-nære rum behandler kvarteret som høst. Bekræftet som funktion; franchisen varierer.",
+    },
+    school: {
+      name: "Skole / næste generation",
+      cover: "Koranskole, weekend-arabisk, lektiecafé, ungdomsklub.",
+      network: "Det lange greb. Børn lærer en retsorden og en historie, der ikke svarer til folkeskolen. Parallel dannelse er pointen, ikke en bivirkning.",
+    },
+    welfare: {
+      name: "Velfærd / parallelt sogn",
+      cover: "Zakat, madpakker, begravelseskasser, kvindegrupper, 'integrations'-caféer.",
+      network: "En socialstat, der ikke løber gennem kommunen. Loyalitet følger den hånd, der betaler. Diyanet og Broderskabet ved begge det. Høj som funktion, ikke som budgetlinje.",
+    },
+    family: {
+      name: "Familie / civilstand",
+      cover: "Nikah, begravelse, konvertitpapirer, rådgivning.",
+      network: "Hvem der må gifte sig med hvem, under hvilken lov, med hvilke vidner. Den danske stat noterer et bryllup. Rummet noterer en kontrakt. To attester, ét monopol.",
+    },
+    arbitration: {
+      name: "Voldgift / lokal lov",
+      cover: "Mægling, sulh, 'konfliktløsning' inde i flokken.",
+      network: "Blodpenge, kønsapartheid som politik, kvarteret der ikke ringer til politiet. Al-Hidayyah er det navngivne rum. Moderat som andel af 310; høj som kapacitet dér, hvor den sidder.",
+    },
+    foreign: {
+      name: "Fremmed kommando",
+      cover: "Et nationalt sogn: tyrkisk, pakistansk, iransk, qatarisk, bosnisk.",
+      network: "Imamløn, byggeri og prædiken, der svarer til Ankara, Teheran, Doha eller Lahore. Kühle: ~40% af identificerede rum knyttet til en transnational organisation. Bekræftet. Imam Ali er den iranske sag, Folketinget ikke kan opløse.",
+    },
+    politics: {
+      name: "Politik / gaden",
+      cover: "Underskrifter, 'antiracisme', Palæstina-demoer, vælgerkørsel.",
+      network: "Mobilisering af flokken som blok. Moskéen er opslagstavlen og bussen. HuT bruger minbaren som udstillingsvindue. Hovedstadsrum vender gaden ud på kommando.",
+    },
+    recruitment: {
+      name: "Rekruttering / rejsebureau",
+      cover: "Studiekreds, broderskab, 'humanitær' konvoj.",
+      network: "Poolen til Syrien, og til det, der kommer. Grimhøj som den læsbare knude (~22 af ~100 rejsende). Maskinhuset og københavnske salafistiske køkkener som fætre. Høj for det navngivne håndfuld. Ikke to femtedele af 310.",
+    },
+  },
+  purposeFilterAll: "Alle jobs",
+  purposeCover: "Dække",
+  purposeNetwork: "Netværk",
+  purposeNamed: "{n} navngivne rum",
   sitesTitle: "Navngivne rum på den offentlige sag",
   sitesDek:
     "Et register findes ikke, så felten har fotografier. Disse er ikke et udsnit af 310. De er rum, en avis, et politital eller en kortlægning allerede har navngivet. Filtrér på etage. Sognerum bliver på siden, så protokollen ikke bliver en hitliste. Kinetiske navne er et håndfuld — derfor forbliver 40% som lagre spekulativt.",
