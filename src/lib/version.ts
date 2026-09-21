@@ -4,10 +4,10 @@ import type { Locale } from "@/lib/i18n/locale";
 export const ATLAS_TIME_ZONE = "Europe/Copenhagen";
 
 /** Semver of the published encyclopedia, not the scaffold. Bump when the public edition changes. */
-export const ATLAS_VERSION = "0.12.0";
+export const ATLAS_VERSION = "0.13.0";
 
 /** Instant this edition was published. ISO-8601 with offset. */
-export const ATLAS_PUBLISHED_AT = "2026-09-21T18:14:00+02:00";
+export const ATLAS_PUBLISHED_AT = "2026-09-21T19:26:00+02:00";
 
 export type EditionNote = {
   version: string;
@@ -16,6 +16,14 @@ export type EditionNote = {
 };
 
 export const ATLAS_CHANGELOG: EditionNote[] = [
+  {
+    version: "0.13.0",
+    publishedAt: "2026-09-21T19:26:00+02:00",
+    note: {
+      en: "Unaccounted mosque capital: stock minus named foreign gifts. The remainder is donations.",
+      da: "Uafstemt moskékapital: beholdning minus navngivne udenlandske gaver. Resten er donationer.",
+    },
+  },
   {
     version: "0.12.0",
     publishedAt: "2026-09-21T18:14:00+02:00",

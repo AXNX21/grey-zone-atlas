@@ -26,8 +26,14 @@ import {
   shareOf,
 } from "@/lib/atlas/census";
 import type { CensusEthnicBloc, CensusFloorId, CensusFundId, CensusLayerId, CensusPurposeId, CensusSiteFloor } from "@/lib/atlas/census";
+import {
+  CENSUS_COST_BOUNDS,
+  CENSUS_COST_DEFAULTS,
+  fmtMio,
+  mosqueCapital,
+} from "@/lib/atlas/census-cost";
 import { useAtlas } from "@/lib/atlas";
-import { interpolate, useT } from "@/lib/i18n";
+import { interpolate, useResolvedLocale, useT } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 function fmt(n: number) {
@@ -57,6 +63,11 @@ export function MosqueCensus() {
   const [fundFilter, setFundFilter] = useState<CensusFundId | "all">("all");
   const [openPurpose, setOpenPurpose] = useState<CensusPurposeId | "">("dawa");
   const [openFund, setOpenFund] = useState<CensusFundId | "">("qatar");
+  const [purposeOtherM, setPurposeOtherM] = useState(CENSUS_COST_DEFAULTS.purposeOtherM);
+  const [ownedM, setOwnedM] = useState(CENSUS_COST_DEFAULTS.ownedM);
+  const [musallaM, setMusallaM] = useState(CENSUS_COST_DEFAULTS.musallaM);
+  const [ownShare, setOwnShare] = useState(CENSUS_COST_DEFAULTS.ownShare);
+  const locale = useResolvedLocale();
 
   const inclusive = inclusiveFromDemo(pop, catchment);
   const fromMapped = inclusiveFromMapped(CENSUS_DEFAULTS.mapped, darkRatio);
@@ -65,6 +76,15 @@ export function MosqueCensus() {
   const transnational = shareOf(CENSUS_DEFAULTS.mapped, 0.4);
   const kineticField = shareOf(inclusive, fieldShare);
   const darkGap = Math.max(0, inclusive - CENSUS_DEFAULTS.mapped);
+  const cost = mosqueCapital({
+    mapped: CENSUS_DEFAULTS.mapped,
+    inclusive,
+    purposeBuilt: CENSUS_DEFAULTS.purposeBuilt,
+    purposeOtherM,
+    ownedM,
+    musallaM,
+    ownShare,
+  });
   const yearsSpan = CENSUS_NOW_YEAR - CENSUS_CONTROL_YEAR;
   const rate = cagr(CENSUS_CONTROL_N, Math.max(inclusive, 1), yearsSpan);
   const doubling = doublingYears(rate);
@@ -111,6 +131,10 @@ export function MosqueCensus() {
     setCatchment(CENSUS_DEFAULTS.catchment);
     setDarkRatio(CENSUS_DEFAULTS.darkRatio);
     setFieldShare(CENSUS_DEFAULTS.fieldShare);
+    setPurposeOtherM(CENSUS_COST_DEFAULTS.purposeOtherM);
+    setOwnedM(CENSUS_COST_DEFAULTS.ownedM);
+    setMusallaM(CENSUS_COST_DEFAULTS.musallaM);
+    setOwnShare(CENSUS_COST_DEFAULTS.ownShare);
   };
 
   return (
@@ -408,6 +432,112 @@ export function MosqueCensus() {
             </li>
           ))}
         </ul>
+      </section>
+
+      <section className="rounded-xl bg-card p-4 shadow-border sm:p-6">
+        <p className="font-mono text-[10px] tracking-[0.18em] text-faint uppercase">{copy.costTitle}</p>
+        <p className="mt-3 font-display text-3xl tracking-tight sm:text-4xl">
+          {interpolate(copy.costIdentity, {
+            total: fmtMio(cost.capitalTotal, locale),
+            named: fmtMio(cost.namedCapital, locale),
+            gap: fmtMio(cost.unaccounted, locale),
+          })}
+        </p>
+        <p className="mt-3 max-w-2xl text-sm text-muted-foreground">{copy.costDek}</p>
+        <p className="mt-3 text-sm text-confirm">
+          {interpolate(copy.costDonations, { share: Math.round(cost.donationShare * 100) })}
+        </p>
+        <p className="mt-2 text-sm text-muted-foreground">
+          {interpolate(copy.costDiyanet, {
+            n: fmtMio(cost.diyanetPayroll, locale),
+            years: CENSUS_COST_DEFAULTS.imamYears,
+            imams: CENSUS_COST_DEFAULTS.namedDiyanetImams,
+          })}
+        </p>
+        <p className="mt-2 text-sm text-muted-foreground">
+          {interpolate(copy.costAnnual, {
+            opex: fmtMio(cost.annualOpex, locale),
+            public: fmtMio(cost.annualPublic, locale),
+          })}
+        </p>
+        <div className="mt-6 h-3 overflow-hidden rounded-full bg-muted">
+          <div className="flex h-full w-full">
+            <div className="h-full bg-steel" style={{ width: `${(cost.namedCapital / cost.capitalTotal) * 100}%` }} />
+            <div className="h-full bg-destructive" style={{ width: `${(cost.unaccounted / cost.capitalTotal) * 100}%` }} />
+          </div>
+        </div>
+        <div className="mt-2 flex flex-wrap gap-4 font-mono text-[10px] tracking-wider uppercase">
+          <span className="flex items-center gap-2 text-steel">
+            <span className="size-2 rounded-full bg-steel" />
+            {copy.costLayers.named} · {fmtMio(cost.namedCapital, locale)}
+          </span>
+          <span className="flex items-center gap-2 text-destructive">
+            <span className="size-2 rounded-full bg-destructive" />
+            {copy.costLayers.gap} · {fmtMio(cost.unaccounted, locale)}
+          </span>
+        </div>
+        <ul className="mt-6 grid gap-2 sm:grid-cols-2">
+          {(
+            [
+              ["grand", cost.capitalGrand],
+              ["iran", cost.capitalIran],
+              ["purpose", cost.capitalPurpose],
+              ["owned", cost.capitalOwned],
+              ["dark", cost.capitalDark],
+            ] as const
+          ).map(([id, n]) => (
+            <li key={id} className="flex items-baseline justify-between gap-3 rounded-md bg-secondary px-3 py-2">
+              <span className="text-sm text-muted-foreground">{copy.costLayers[id]}</span>
+              <span className="font-mono text-xs text-steel">{fmtMio(n, locale)}</span>
+            </li>
+          ))}
+        </ul>
+        <div className="mt-8 grid gap-6 lg:grid-cols-2">
+          <SliderRow
+            label={copy.costPurposeLabel}
+            value={purposeOtherM}
+            display={fmtMio(purposeOtherM, locale)}
+            min={CENSUS_COST_BOUNDS.purposeOtherM.min}
+            max={CENSUS_COST_BOUNDS.purposeOtherM.max}
+            step={CENSUS_COST_BOUNDS.purposeOtherM.step}
+            onChange={setPurposeOtherM}
+          />
+          <SliderRow
+            label={copy.costOwnedLabel}
+            value={Math.round(ownedM * 10)}
+            display={fmtMio(ownedM, locale)}
+            min={Math.round(CENSUS_COST_BOUNDS.ownedM.min * 10)}
+            max={Math.round(CENSUS_COST_BOUNDS.ownedM.max * 10)}
+            step={Math.round(CENSUS_COST_BOUNDS.ownedM.step * 10)}
+            onChange={(v) => setOwnedM(v / 10)}
+          />
+          <SliderRow
+            label={copy.costMusallaLabel}
+            value={Math.round(musallaM * 20)}
+            display={fmtMio(musallaM, locale)}
+            min={Math.round(CENSUS_COST_BOUNDS.musallaM.min * 20)}
+            max={Math.round(CENSUS_COST_BOUNDS.musallaM.max * 20)}
+            step={1}
+            onChange={(v) => setMusallaM(v / 20)}
+          />
+          <SliderRow
+            label={copy.costOwnLabel}
+            value={Math.round(ownShare * 100)}
+            display={`${Math.round(ownShare * 100)}%`}
+            min={Math.round(CENSUS_COST_BOUNDS.ownShare.min * 100)}
+            max={Math.round(CENSUS_COST_BOUNDS.ownShare.max * 100)}
+            step={1}
+            onChange={(v) => setOwnShare(v / 100)}
+          />
+        </div>
+        <div className="mt-6 flex flex-col gap-3 text-sm text-muted-foreground">
+          {copy.costMethod.map((m) => (
+            <p key={m.slice(0, 48)}>{m}</p>
+          ))}
+        </div>
+        <div className="mt-4">
+          <AttributionBadge level="moderate" />
+        </div>
       </section>
 
       <section>

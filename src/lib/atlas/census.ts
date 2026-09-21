@@ -233,6 +233,20 @@ export type CensusCopy = {
   fundFilterAll: string;
   fundLinesTitle: string;
   fundLineNotes: Record<string, string>;
+  costTitle: string;
+  costDek: string;
+  costIdentity: string;
+  costUnaccounted: string;
+  costNamed: string;
+  costDonations: string;
+  costDiyanet: string;
+  costAnnual: string;
+  costMethod: string[];
+  costPurposeLabel: string;
+  costOwnedLabel: string;
+  costMusallaLabel: string;
+  costOwnLabel: string;
+  costLayers: Record<string, string>;
   sitesTitle: string;
   sitesDek: string;
   sites: Record<string, { name: string; note: string }>;
@@ -532,6 +546,34 @@ const en: CensusCopy = {
     "icel-kk": "Københavns Kommune, choir and cooking. Kept in 2026.",
     "diyanet-payroll": "Not concrete. The sermon, every Friday.",
   },
+  costTitle: "The unaccounted bill",
+  costDek:
+    "Named gifts are the photograph: Qatar, Iran, a Saudi embassy cheque. They are not the lattice. Price the rooms the register will not price — other purpose-built, owned conversions, basement musallas — subtract the named foreign capital, and the remainder is donations. Membership plates, neighbour collections, cash, and the dark Gulf column. Working stock in 2026 kroner. Moderate as a number. Confirmed as a method: the same identity as the room count.",
+  costIdentity: "{total} capital stock − {named} named foreign = {gap} unaccounted",
+  costUnaccounted: "Unaccounted capital. This is the donation floor.",
+  costNamed: "Named foreign capital (Qatar 226, Iran 45, Saudi+Kuwait 5.5).",
+  costDonations: "{share}% of the stock has no foreign line on a form. It was donated, locally or in the dark.",
+  costDiyanet: "Diyanet payroll on top of capital: {n} over {years} years, {imams} imams. Accounted — in Ankara.",
+  costAnnual: "{opex} a year to keep the lights on, plus {public} in named kommune money (Al-Hidayyah, ten-year average).",
+  costMethod: [
+    "Four capital layers. Grand (HBKCC, named). Other purpose-built (Fetih-class). Owned conversions (60% of mapped minus the purpose-built). Inclusive musallas (the dark figure).",
+    "Anchors, not vibes: HBKCC ~226m (Civilstyrelsen). Imam Ali 40–50m. Taiba 18m property / 4.9m Saudi. Skive 1.0m, Skælskør 1.3m as the provincial floor. Imam Malik Institute: member-funded garage, ~3m annual turnover.",
+    "Named foreign capital is subtracted once: 226 + 45 + 5.5. Skive and Skælskør sit inside the Qatari bag. The 1.5m kommune line is operating, not concrete.",
+    "Move the sliders. The identity should still meet: most of the lattice was not a Gulf wire. It was plates. That is still a billion-kroner sacral build-out the ministry does not total.",
+  ],
+  costPurposeLabel: "Other purpose-built, mio. kr. each",
+  costOwnedLabel: "Owned conversion, mio. kr. each",
+  costMusallaLabel: "Musalla / dark room, mio. kr. each",
+  costOwnLabel: "Share of mapped rooms that own",
+  costLayers: {
+    grand: "Grand (HBKCC)",
+    iran: "Imam Ali",
+    purpose: "Other purpose-built",
+    owned: "Owned conversions",
+    dark: "Inclusive musallas",
+    named: "Named foreign",
+    gap: "Donations / unaccounted",
+  },
   sitesTitle: "Named rooms on the public record",
   sitesDek:
     "A register does not exist, so the field has photographs. These are not a sample of 310. They are the rooms a newspaper, a police count, or a mapping already named. Filter by floor. Parish rooms stay on the page so the ledger does not become a hit list. Kinetic names are a handful — which is why 40% as caches stays speculative.",
@@ -759,6 +801,16 @@ const en: CensusCopy = {
       title: "Iranian mortgage on Vibevej / Imam Ali",
       publisher: "Weekendavisen / Kristeligt Dagblad; Folketinget S 8",
       date: "2009 / 2024",
+    },
+    {
+      title: "Imam Malik Instituttet accounts — member-funded garage, ~3m DKK annual turnover",
+      publisher: "Public accounts / Scandinavian territorialisation study",
+      date: "2018–2022 / 2026",
+    },
+    {
+      title: "Taiba property purchase ~18m DKK; Kühle 2017 ownership share ~60%",
+      publisher: "Trossamfund filings; Moskeér i Danmark II",
+      date: "2017–2018",
     },
   ],
 };
@@ -1045,6 +1097,34 @@ const da: CensusCopy = {
     "kuwait-taiba": "Andet Golf-check, samme rum.",
     "icel-kk": "Københavns Kommune, korsang og madlavning. Beholdt i 2026.",
     "diyanet-payroll": "Ikke beton. Prædikenen, hver fredag.",
+  },
+  costTitle: "Den uafstemte regning",
+  costDek:
+    "De navngivne gaver er fotografiet: Qatar, Iran, et saudisk ambassadecheck. De er ikke gitteret. Prissæt rummene, registret ikke vil prissætte — øvrige nybyggede, ejede ombygninger, kældermusallaer — træk den navngivne udenlandske kapital fra, og resten er donationer. Kontingent-tallerkener, naboindsamlinger, kontanter og den mørke Golf-kolonne. Arbejdsbeholdning i 2026-kroner. Moderat som tal. Bekræftet som metode: den samme identitet som rumtællingen.",
+  costIdentity: "{total} kapitalbeholdning − {named} navngivet udenlandsk = {gap} uafstemt",
+  costUnaccounted: "Uafstemt kapital. Dette er donationsgulvet.",
+  costNamed: "Navngivet udenlandsk kapital (Qatar 226, Iran 45, Saudi+Kuwait 5,5).",
+  costDonations: "{share}% af beholdningen har ingen udenlandsk linje på en blanket. Den blev doneret, lokalt eller i mørket.",
+  costDiyanet: "Diyanet-løn oven i kapitalen: {n} over {years} år, {imams} imamer. Afstemt — i Ankara.",
+  costAnnual: "{opex} om året for at holde lyset tændt, plus {public} i navngivne kommunekroner (Al-Hidayyah, tiårsgennemsnit).",
+  costMethod: [
+    "Fire kapitallag. Stormoské (HBKCC, navngivet). Øvrige nybyggede (Fetih-klassen). Ejede ombygninger (60% af kortlagte minus de nybyggede). Inklusive musallaer (mørketallet).",
+    "Ankre, ikke humør: HBKCC ~226 mio. (Civilstyrelsen). Imam Ali 40–50 mio. Taiba 18 mio. ejendom / 4,9 mio. saudi. Skive 1,0 mio., Skælskør 1,3 mio. som det provinsielle gulv. Imam Malik Instituttet: medlemsfinansieret garage, ~3 mio. i årlig omsætning.",
+    "Navngivet udenlandsk kapital trækkes én gang: 226 + 45 + 5,5. Skive og Skælskør sidder i den qatariske pose. De 1,5 mio. kommunekroner er drift, ikke beton.",
+    "Flyt sliderne. Identiteten skal stadig mødes: det meste af gitteret var ikke en Golf-overførsel. Det var tallerkener. Det er stadig et milliardbyggeri, ministeriet ikke totalerer.",
+  ],
+  costPurposeLabel: "Øvrige nybyggede, mio. kr. stykket",
+  costOwnedLabel: "Ejet ombygning, mio. kr. stykket",
+  costMusallaLabel: "Musalla / mørkt rum, mio. kr. stykket",
+  costOwnLabel: "Andel af kortlagte rum, der ejer",
+  costLayers: {
+    grand: "Stormoské (HBKCC)",
+    iran: "Imam Ali",
+    purpose: "Øvrige nybyggede",
+    owned: "Ejede ombygninger",
+    dark: "Inklusive musallaer",
+    named: "Navngivet udenlandsk",
+    gap: "Donationer / uafstemt",
   },
   sitesTitle: "Navngivne rum på den offentlige sag",
   sitesDek:
