@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 import { AttributionBadge } from "@/components/attribution-badge";
 import { EditionStamp } from "@/components/edition-stamp";
+import { HouseCredit } from "@/components/house-credit";
 import { EuropeMap } from "@/components/europe-map";
 import { Badge } from "@/components/ui/badge";
 import { useAtlas } from "@/lib/atlas";
@@ -33,6 +34,9 @@ function Home() {
         <p className="mt-2">
           <EditionStamp className="text-[10px]" />
         </p>
+        <div className="mt-2">
+          <HouseCredit className="text-[10px]" />
+        </div>
         <h1 className="mt-4 max-w-4xl font-display text-4xl leading-[1.08] tracking-tight sm:text-5xl">
           {t.homeTitle}
         </h1>

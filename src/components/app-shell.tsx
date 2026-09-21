@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { CommandPalette } from "@/components/command-palette";
 import { EditionStamp } from "@/components/edition-stamp";
+import { HouseCredit } from "@/components/house-credit";
 import { LocaleSwitch } from "@/components/locale-switch";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
@@ -169,6 +170,9 @@ export function AppShell({ children }: { children: ReactNode }) {
           <p className="mt-3 px-3 text-[10px] leading-relaxed">
             <EditionStamp className="text-[10px] normal-case tracking-wide" />
           </p>
+          <div className="mt-2 px-3">
+            <HouseCredit className="text-[10px]" />
+          </div>
         </aside>
         <main id="content" className="min-w-0 flex-1 px-3 pt-6 pb-24 sm:px-5 sm:pt-8 lg:pb-12">
           {children}
@@ -207,6 +211,9 @@ export function AppShell({ children }: { children: ReactNode }) {
           <p className="mt-6 px-5 text-[10px] leading-relaxed">
             <EditionStamp className="text-[10px] normal-case tracking-wide" />
           </p>
+          <div className="mt-2 px-5">
+            <HouseCredit className="text-[10px]" />
+          </div>
         </SheetContent>
       </Sheet>
       <CommandPalette open={search} onOpenChange={setSearch} />

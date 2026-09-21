@@ -4,6 +4,7 @@ import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/lib/auth/provider";
 import { LocaleSync, parseLocale, uiFor, type Locale } from "@/lib/i18n";
+import { HOUSE } from "@/lib/house";
 import { ATLAS_PUBLISHED_AT, ATLAS_VERSION } from "@/lib/version";
 import appCss from "../styles.css?url";
 
@@ -29,6 +30,8 @@ export const Route = createRootRoute({
         { name: "theme-color", content: "#0c0c0b" },
         { name: "version", content: ATLAS_VERSION },
         { name: "date", content: ATLAS_PUBLISHED_AT },
+        { name: "author", content: `${HOUSE.name} (${HOUSE.slug})` },
+        { name: "publisher", content: HOUSE.name },
         { httpEquiv: "Cache-Control", content: "no-store, no-cache, must-revalidate" },
       ],
       links: [

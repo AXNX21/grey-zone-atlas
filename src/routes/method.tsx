@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AttributionBadge } from "@/components/attribution-badge";
 import { EditionStamp } from "@/components/edition-stamp";
+import { HouseCredit } from "@/components/house-credit";
 import { PageHeader } from "@/components/page-header";
 import { useAtlas } from "@/lib/atlas";
 import { useResolvedLocale, useT } from "@/lib/i18n";
@@ -18,7 +19,12 @@ function MethodPage() {
         kicker={t.kicker.house}
         title={t.pages.methodTitle}
         dek={method.lede}
-        extra={<EditionStamp className="text-[11px]" />}
+        extra={
+          <div className="flex flex-col gap-2">
+            <EditionStamp className="text-[11px]" />
+            <HouseCredit className="text-[11px]" />
+          </div>
+        }
       />
       <ol className="flex flex-col gap-4">
         {method.grades.map((g) => (
@@ -53,6 +59,9 @@ function MethodPage() {
           </li>
         ))}
       </ol>
+      <h2 className="mt-10 font-display text-2xl">{t.kicker.house}</h2>
+      <p className="mt-3 text-sm text-foreground/90">{t.houseColophon}</p>
+      <HouseCredit className="mt-3 text-[11px]" />
     </article>
   );
 }

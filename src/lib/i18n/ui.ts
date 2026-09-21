@@ -32,6 +32,8 @@ export type UiStrings = {
   editionStamp: string;
   lastPublished: string;
   versionHistory: string;
+  houseRoles: string;
+  houseColophon: string;
   homeTitle: string;
   homeDek: string;
   openLedger: string;
@@ -178,6 +180,8 @@ export const UI: Record<Locale, UiStrings> = {
     editionStamp: "Edition {v} · published {when}",
     lastPublished: "Last published {when}",
     versionHistory: "Edition history",
+    houseRoles: "owner · writer · producer",
+    houseColophon: "Owned, written and produced by AXION NEXUS 21 (AXNX21).",
     homeTitle: "The war inside the house",
     homeDek:
       "{n} dossiers are marked active or ongoing. Convergence of incentives is the default hypothesis. A politburo is a claim that needs a document. Russia is a parasite on this file, not its author.",
@@ -362,6 +366,8 @@ export const UI: Record<Locale, UiStrings> = {
     editionStamp: "Udgave {v} · udgivet {when}",
     lastPublished: "Senest udgivet {when}",
     versionHistory: "Udgavehistorik",
+    houseRoles: "ejer · forfatter · producent",
+    houseColophon: "Ejet, skrevet og produceret af AXION NEXUS 21 (AXNX21).",
     homeTitle: "Krigen inde i huset",
     homeDek:
       "{n} dossierer er markeret som aktive eller i gang. Konvergens af interesser er standardhypotesen. Et politbureau er en påstand, der skal have et dokument. Rusland er en parasit på denne sag, ikke dens forfatter.",
