@@ -1,10 +1,12 @@
 import { createRootRoute, HeadContent, Outlet, retainSearchParams, Scripts } from "@tanstack/react-router";
 import { AppShell } from "@/components/app-shell";
 import { PreviewHostBridge } from "@/components/preview-host-bridge";
+import { ThemeSync } from "@/components/theme-sync";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/lib/auth/provider";
 import { LocaleSync, parseLocale, uiFor, type Locale } from "@/lib/i18n";
 import { HOUSE } from "@/lib/house";
+import { THEME_BOOTSTRAP } from "@/lib/theme";
 import { ATLAS_PUBLISHED_AT, ATLAS_VERSION } from "@/lib/version";
 import appCss from "../styles.css?url";
 
@@ -54,14 +56,16 @@ export const Route = createRootRoute({
 function RootDocument() {
   const { lang } = Route.useSearch();
   return (
-    <html lang={lang ?? "en"} className="antialiased" suppressHydrationWarning>
+    <html lang={lang ?? "en"} suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_BOOTSTRAP }} />
         <HeadContent />
       </head>
       <body>
         <PreviewHostBridge />
         <AuthProvider>
           <TooltipProvider delayDuration={200}>
+            <ThemeSync />
             <LocaleSync />
             <AppShell>
               <Outlet />

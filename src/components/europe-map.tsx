@@ -33,8 +33,8 @@ export function EuropeMap({ activeId }: { activeId?: string }) {
         </g>
         <path
           d="M18 22 C22 10, 38 8, 48 12 C58 6, 70 8, 78 16 C86 18, 90 28, 88 36 C92 42, 86 48, 80 50 C84 58, 82 68, 74 72 C68 80, 58 82, 50 78 C40 84, 32 80, 28 70 C18 68, 14 58, 16 48 C10 40, 12 30, 18 22 Z"
-          fill="color-mix(in oklab, #eceae4 6%, transparent)"
-          stroke="color-mix(in oklab, #eceae4 16%, transparent)"
+          fill="color-mix(in oklab, var(--atlas-fg) 6%, transparent)"
+          stroke="color-mix(in oklab, var(--atlas-fg) 16%, transparent)"
           strokeWidth="0.4"
         />
         {onMap.map((th) => (

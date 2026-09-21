@@ -27,6 +27,9 @@ export type UiStrings = {
   };
   sidebarNote: string;
   language: string;
+  theme: string;
+  themeShort: Record<"system" | "dark" | "light", string>;
+  themeLong: Record<"system" | "dark" | "light", string>;
   classification: string;
   edition: string;
   editionStamp: string;
@@ -175,6 +178,9 @@ export const UI: Record<Locale, UiStrings> = {
     },
     sidebarNote: "Not an intelligence product. Convergence is not a conspiracy. Attribution is graded.",
     language: "Language",
+    theme: "Theme",
+    themeShort: { system: "SYS", dark: "Dark", light: "Light" },
+    themeLong: { system: "System", dark: "Dark", light: "Light" },
     classification: "Classification: open source · Not an intelligence product",
     edition: "Edition",
     editionStamp: "Edition {v} · published {when}",
@@ -361,6 +367,9 @@ export const UI: Record<Locale, UiStrings> = {
     },
     sidebarNote: "Ikke et efterretningsprodukt. Konvergens er ikke en konspiration. Attribution er gradueret.",
     language: "Sprog",
+    theme: "Tema",
+    themeShort: { system: "SYS", dark: "Mørk", light: "Lys" },
+    themeLong: { system: "System", dark: "Mørk", light: "Lys" },
     classification: "Klassifikation: åbne kilder · Ikke et efterretningsprodukt",
     edition: "Udgave",
     editionStamp: "Udgave {v} · udgivet {when}",

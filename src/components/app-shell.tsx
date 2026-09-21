@@ -15,8 +15,7 @@ import {
 } from "lucide-react";
 import { CommandPalette } from "@/components/command-palette";
 import { EditionStamp } from "@/components/edition-stamp";
-import { HouseCredit } from "@/components/house-credit";
-import { LocaleSwitch } from "@/components/locale-switch";
+import { MenuDock } from "@/components/menu-dock";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { useT } from "@/lib/i18n";
@@ -134,7 +133,6 @@ export function AppShell({ children }: { children: ReactNode }) {
             </span>
           </Link>
           <div className="ml-auto flex items-center gap-1.5">
-            <LocaleSwitch />
             <Button
               type="button"
               variant="outline"
@@ -162,17 +160,11 @@ export function AppShell({ children }: { children: ReactNode }) {
       </header>
 
       <div className="mx-auto flex max-w-[88rem] gap-0 lg:gap-6">
-        <aside className="sticky top-14 hidden h-[calc(100dvh-3.5rem)] w-56 shrink-0 overflow-y-auto py-5 lg:block">
-          <NavLinks />
-          <p className="mt-8 px-3 font-mono text-[10px] leading-relaxed tracking-wide text-faint uppercase">
-            {t.sidebarNote}
-          </p>
-          <p className="mt-3 px-3 text-[10px] leading-relaxed">
-            <EditionStamp className="text-[10px] normal-case tracking-wide" />
-          </p>
-          <div className="mt-2 px-3">
-            <HouseCredit className="text-[10px]" />
+        <aside className="sticky top-14 hidden h-[calc(100dvh-3.5rem)] w-56 shrink-0 flex-col overflow-hidden py-5 lg:flex">
+          <div className="min-h-0 flex-1 overflow-y-auto">
+            <NavLinks />
           </div>
+          <MenuDock />
         </aside>
         <main id="content" className="min-w-0 flex-1 px-3 pt-6 pb-24 sm:px-5 sm:pt-8 lg:pb-12">
           {children}
@@ -207,13 +199,10 @@ export function AppShell({ children }: { children: ReactNode }) {
           <SheetHeader>
             <SheetTitle>{t.menuTitle}</SheetTitle>
           </SheetHeader>
-          <NavLinks onNavigate={() => setMenu(false)} compact />
-          <p className="mt-6 px-5 text-[10px] leading-relaxed">
-            <EditionStamp className="text-[10px] normal-case tracking-wide" />
-          </p>
-          <div className="mt-2 px-5">
-            <HouseCredit className="text-[10px]" />
+          <div className="min-h-0 flex-1 overflow-y-auto">
+            <NavLinks onNavigate={() => setMenu(false)} compact />
           </div>
+          <MenuDock padded />
         </SheetContent>
       </Sheet>
       <CommandPalette open={search} onOpenChange={setSearch} />

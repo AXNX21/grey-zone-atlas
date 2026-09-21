@@ -4,10 +4,10 @@ import type { Locale } from "@/lib/i18n/locale";
 export const ATLAS_TIME_ZONE = "Europe/Copenhagen";
 
 /** Semver of the published encyclopedia, not the scaffold. Bump when the public edition changes. */
-export const ATLAS_VERSION = "0.9.0";
+export const ATLAS_VERSION = "0.10.0";
 
 /** Instant this edition was published. ISO-8601 with offset. */
-export const ATLAS_PUBLISHED_AT = "2026-09-21T07:21:00+02:00";
+export const ATLAS_PUBLISHED_AT = "2026-09-21T12:36:00+02:00";
 
 export type EditionNote = {
   version: string;
@@ -16,6 +16,14 @@ export type EditionNote = {
 };
 
 export const ATLAS_CHANGELOG: EditionNote[] = [
+  {
+    version: "0.10.0",
+    publishedAt: "2026-09-21T12:36:00+02:00",
+    note: {
+      en: "Menu dock: locale, light/dark/system theme, AXNX21 house mark.",
+      da: "Menudock: sprog, lys/mørk/system-tema, AXNX21-husmærke.",
+    },
+  },
   {
     version: "0.9.0",
     publishedAt: "2026-09-21T07:21:00+02:00",
