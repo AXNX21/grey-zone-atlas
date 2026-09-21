@@ -26,7 +26,7 @@ export const posture = {
     },
     {
       value: "1 → 310",
-      label: "Sunni mosques in Denmark, 1974 living memory to 2026 inclusive layer",
+      label: "Mosques in Denmark: 1 named Sunni room (1974) to ~310 Friday rooms (2026, majority Sunni)",
       compare: "Mapped band still 160–200. The register is the missing number. ~40% field-share not friendly, graded",
       source: "Kühle 2006/2017; Jacobsen population; this atlas identity",
     },
@@ -46,7 +46,7 @@ export const posture = {
     },
     {
       title: "The mosque is not weather",
-      body: "Denmark has no mosque register. Mapped Friday sites sit in the 160–200 band. Inclusive prayer rooms — the ones a 1974 birth year can feel — land on three hundred and change. A field share of ~40% not friendly is a hypothesis with floors, not a PET inventory of caches. The undercount is the campaign.",
+      body: "Denmark has no mosque register. Mapped Friday sites sit in the 160–200 band. Inclusive prayer rooms — the ones a 1974 birth year can feel — land on three hundred and change, majority Sunni, not Sunni-only. A field share of ~40% not friendly is a hypothesis with floors, not a PET inventory of caches. The undercount is the campaign.",
     },
     {
       title: "The Samsam wound is the other Danish file",

@@ -26,7 +26,7 @@ export const posture = {
     },
     {
       value: "1 → 310",
-      label: "Sunnimoskéer i Danmark, 1974 i levende erindring til 2026 inklusive lag",
+      label: "Moskéer i Danmark: 1 navngivet sunnirum (1974) til ~310 fredagsrum (2026, flertal sunni)",
       compare: "Kortlagt bånd stadig 160–200. Registret er det manglende tal. ~40% feltandel ikke venlige, gradueret",
       source: "Kühle 2006/2017; Jacobsen befolkning; dette atlas' identitet",
     },
@@ -46,7 +46,7 @@ export const posture = {
     },
     {
       title: "Moskéen er ikke vejr",
-      body: "Danmark har intet moskéregister. Kortlagte fredagssteder ligger i båndet 160–200. Inklusive bederum — dem et 1974-år kan mærke — lander på tre hundrede og lidt. En feltandel på ~40% ikke venlige er en hypotese med etager, ikke et PET-inventar af lagre. Undertællingen er kampagnen.",
+      body: "Danmark har intet moskéregister. Kortlagte fredagssteder ligger i båndet 160–200. Inklusive bederum — dem et 1974-år kan mærke — lander på tre hundrede og lidt, flertal sunni, ikke sunni-only. En feltandel på ~40% ikke venlige er en hypotese med etager, ikke et PET-inventar af lagre. Undertællingen er kampagnen.",
     },
     {
       title: "Samsam-såret er den anden danske fil",

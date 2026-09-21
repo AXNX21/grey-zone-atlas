@@ -369,7 +369,7 @@ export const enforcementCampaigns: Campaign[] = [
   {
     id: "mosque-census",
     title: "The mosque dark figure",
-    dek: "No official count, on purpose. Mapped 160–200. Inclusive three hundred and change. 1974: one Sunni mosque.",
+    dek: "No official count, on purpose. Mapped 160–200. Inclusive three hundred and change, majority Sunni. 1974 control: one named Sunni mosque.",
     status: "active",
     period: { start: "1967" },
     domains: ["islamist-entry", "taboo", "migration", "public-service"],
@@ -442,7 +442,7 @@ export const enforcementCampaigns: Campaign[] = [
       ],
     },
     summary:
-      "The interior campaign has a sacral wing. In 1967 the Nordic region got its first purpose-built mosque — Ahmadiyya, Hvidovre — and the papers were curious. In 1974 a Dane of that year could name one Sunni mosque. In 2006 a walk-in mapping found 115. In 2017, 170, plus an edge the authors would not certify. In 2026 the mapped band is still 160–200 and the inclusive layer — every regular Friday room — is the number nobody is paid to make. Two identities meet at three hundred and change: population over catchment, and mapped times a dark-figure ratio. That is settlement as architecture. The field then says: not all of them friendly; about two-fifths weaponized. This atlas splits that word into four floors. Transnational affiliation at ~40% is on paper (Kühle). Hostile/mobilizable infrastructure at ~40% is a moderate field reading. Recruitment nodes are a named handful (high). Weapons caches at 40% are a speculation the record does not presently carry at scale. The method forbids laundering the last as the first. It also forbids pretending the undercount is weather.",
+      "The interior campaign has a sacral wing. In 1967 the Nordic region got its first purpose-built mosque — Ahmadiyya, Hvidovre — and the papers were curious. In 1974 a Dane of that year could name one Sunni mosque; Sunni Islam had just stopped counting the Ahmadiyya house. In 2006 a walk-in mapping found 115 (104 Sunni, 10 Shia, 1 Ahmadiyya). In 2017, 170 identified, last ethnic split 138 Sunni / 20 Shia / 2 Ahmadiyya. In 2026 the mapped band is still 160–200 and the inclusive layer — every regular Friday room, majority Sunni, not Sunni-only — is the number nobody is paid to make. Two identities meet at three hundred and change: population over catchment, and mapped times a dark-figure ratio. That is settlement as architecture. The field then says: not all of them friendly; about two-fifths weaponized. This atlas splits that word into four floors. Transnational affiliation at ~40% is on paper (Kühle). Hostile/mobilizable infrastructure at ~40% is a moderate field reading — a Sunni-Islamist story at Grimhøj and cousins, a Shia/Iranian command story at Imam Ali. Recruitment nodes are a named handful (high). Weapons caches at 40% are a speculation the record does not presently carry at scale. The method forbids laundering the last as the first. It also forbids pretending the undercount is weather, and forbids labelling the whole ledger 'Sunni mosques.'",
     mechanism:
       "Refuse a register. Count trossamfund instead of rooms. Let guest-worker prayer become family-reunion parish become asylum basement become provincial musalla, never in the same spreadsheet. Fund the mapped layer's research once a decade. Treat purpose-built as the public story. Advertise the Syria camp in the milieu, then in the pocket. Call any inclusive count 'Islamophobic arithmetic.'",
     effects: [

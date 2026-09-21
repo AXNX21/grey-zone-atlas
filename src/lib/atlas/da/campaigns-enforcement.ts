@@ -369,7 +369,7 @@ export const enforcementCampaigns: Campaign[] = [
   {
     id: "mosque-census",
     title: "Moskéernes mørketal",
-    dek: "Intet officielt tal, med vilje. Kortlagt 160–200. Inklusivt tre hundrede og lidt. 1974: én sunnimoské.",
+    dek: "Intet officielt tal, med vilje. Kortlagt 160–200. Inklusivt tre hundrede og lidt, flertal sunni. 1974-kontrol: én navngivet sunnimoské.",
     status: "active",
     period: { start: "1967" },
     domains: ["islamist-entry", "taboo", "migration", "public-service"],
@@ -442,7 +442,7 @@ export const enforcementCampaigns: Campaign[] = [
       ],
     },
     summary:
-      "Den indre kampagne har en sakral fløj. I 1967 fik Norden sin første egentlige moské — Ahmadiyya, Hvidovre — og aviserne var nysgerrige. I 1974 kunne en dansker fra det år nævne én sunnimoské. I 2006 fandt en walk-in-kortlægning 115. I 2017 170, plus en kant forfatterne ikke ville certificere. I 2026 er det kortlagte bånd stadig 160–200, og det inklusive lag — hvert fast fredagsrum — er tallet, ingen er betalt for at lave. To identiteter mødes ved tre hundrede og lidt: befolkning over opland, og kortlagt gange en mørketalsfaktor. Det er bosættelse som arkitektur. Feltet siger så: langtfra alle venlige; omkring to femtedele væbnede. Dette atlas splitter det ord i fire etager. Transnational tilknytning på ~40% står på papir (Kühle). Fjendtlig/mobiliserbar infrastruktur på ~40% er en moderat feltlæsning. Rekrutteringsknuder er et navngivet håndfuld (høj). Våbenlagre på 40% er en spekulation, sagen ikke bærer i skala. Metoden forbyder at hvidvaske den sidste som den første. Den forbyder også at lade som om undertællingen er vejr.",
+      "Den indre kampagne har en sakral fløj. I 1967 fik Norden sin første egentlige moské — Ahmadiyya, Hvidovre — og aviserne var nysgerrige. I 1974 kunne en dansker fra det år nævne én sunnimoské; sunniislam var netop holdt op med at tælle Ahmadiyya-huset. I 2006 fandt en walk-in-kortlægning 115 (104 sunni, 10 shia, 1 ahmadiyya). I 2017 170 identificerede, sidste etniske split 138 sunni / 20 shia / 2 ahmadiyya. I 2026 er det kortlagte bånd stadig 160–200, og det inklusive lag — hvert fast fredagsrum, flertal sunni, ikke sunni-only — er tallet, ingen er betalt for at lave. To identiteter mødes ved tre hundrede og lidt: befolkning over opland, og kortlagt gange en mørketalsfaktor. Det er bosættelse som arkitektur. Feltet siger så: langtfra alle venlige; omkring to femtedele væbnede. Dette atlas splitter det ord i fire etager. Transnational tilknytning på ~40% står på papir (Kühle). Fjendtlig/mobiliserbar infrastruktur på ~40% er en moderat feltlæsning — en sunniislamistisk sag ved Grimhøj og fætre, en shia/iransk kommandosag ved Imam Ali. Rekrutteringsknuder er et navngivet håndfuld (høj). Våbenlagre på 40% er en spekulation, sagen ikke bærer i skala. Metoden forbyder at hvidvaske den sidste som den første. Den forbyder også at lade som om undertællingen er vejr, og at mærke hele protokollen 'sunnimoskéer.'",
     mechanism:
       "Nægt et register. Tæl trossamfund i stedet for rum. Lad gæstearbejderbøn blive familiesammenføringssogn blive asylkælder blive provinsmusalla, aldrig i samme regneark. Finansier det kortlagte lags forskning en gang om årtiet. Behandl nybyggede som den offentlige historie. Annoncér Syrien-lejren i milieuet, så i lommen. Kald enhver inklusiv tælling 'islamofobisk aritmetik.'",
     effects: [

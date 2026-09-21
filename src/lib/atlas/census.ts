@@ -233,12 +233,12 @@ const en: CensusCopy = {
   method: [
     "Two identities that should meet. First: inclusive sites ≈ Muslim population ÷ catchment per regular prayer site. Second: inclusive ≈ mapped × dark-figure ratio.",
     "Working stock: ~300,000 Muslims in Denmark (Jacobsen 292k in 2024/25, rising). Catchment 950 yields ~316 sites. Mapped 185 × 1.7 yields ~315. The field estimate of 300+ is that meeting point, not a round number for a poster.",
-    "1974 is the control observation: one Sunni mosque in living memory. Nusrat Jahan (Ahmadiyya, 1967) is the first purpose-built house in the Nordic region; Sunni Islam does not count it as a mosque after the 1974 declaration. Guest-worker prayer rooms were just beginning. The curve from that one room to three hundred is the sacral half of settlement.",
-    "The 40% 'weaponized' share is a field estimate, not a PET inventory. This ledger splits it into four floors with grades. Reading the kinetic floor as confirmed is a method violation.",
+    "1974 is the control observation: one named Sunni mosque in living memory. Nusrat Jahan (Ahmadiyya, 1967) is the first purpose-built house in the Nordic region; Sunni Islam does not count it after the 1974 declaration. Guest-worker rooms were just beginning. The 2026 inclusive layer is Friday rooms of every affiliation — not a Sunni-only count. Kühle/Larsen's last ethnic split (2017) was 138 Sunni, 20 Shia, 2 Ahmadiyya of 160 identified. Majority Sunni is a fact. Sunni-only is a smear of the ledger.",
+    "The 40% 'weaponized' share is a field estimate, not a PET inventory. This ledger splits it into four floors with grades. The Syria travel bureau and the Salafi/Brotherhood lattice are a Sunni-Islamist story. Imam Ali is a different weapon: Iranian command, Shia. Reading the kinetic floor as confirmed is a method violation.",
   ],
   controlTitle: "1974 as control",
   control:
-    "A person born in 1974 could name one Sunni mosque in Denmark. Fifty-two years later the inclusive layer is above three hundred. That is not 'diversity arriving.' It is an institutional build-out at the tempo of family reunification, asylum, and natalism — the same tempo as the rest of this atlas.",
+    "A person born in 1974 could name one Sunni mosque in Denmark. The Ahmadiyya house in Hvidovre was already standing; Sunni Islam had just stopped counting it. Fifty-two years later the inclusive layer is above three hundred Friday rooms — mostly Sunni, also Shia, also the two Ahmadiyya rooms. That is not 'diversity arriving.' It is an institutional build-out at the tempo of family reunification, asylum, and natalism — the same tempo as the rest of this atlas.",
   layersTitle: "Four layers, four numbers",
   layers: {
     purpose: {
@@ -268,7 +268,7 @@ const en: CensusCopy = {
   meetOk: "The two identities meet. That is the method working.",
   meetOff: "The identities have diverged. One of the sliders is doing too much work.",
   growthTitle: "Tempo from the control year",
-  growthDek: "One Sunni mosque in living memory, 1974. Compound the inclusive layer from that one room. The doubling time is the sacral half of settlement, in a unit a ministry can still refuse to print.",
+  growthDek: "One named Sunni mosque in living memory, 1974. Compound the inclusive Friday-room layer from that control — majority Sunni, not Sunni-only. The doubling time is the sacral half of settlement, in a unit a ministry can still refuse to print.",
   growthLine: "{start} → {end} in {years} years · doubling every {d} years · {cagr}% a year",
   darkGap: "{n} rooms sit in the dark figure — inclusive minus mapped. Basements do not buy listings.",
   darkGapLabel: "Dark figure",
@@ -316,7 +316,7 @@ const en: CensusCopy = {
   curveDek: "Mapped layer against inclusive layer. The gap is the dark figure. It opens after the guest-worker years and widens with family reunification and 2015.",
   ethnicTitle: "Who the mapped rooms belonged to in 2017",
   ethnicDek:
-    "Kühle and Larsen identified 160 rooms and then counted ethnicity. This is the last ethnic census of the mapped layer. It is not a hostility census. Turkish 41 is mostly a Diyanet parish. Arab 39 is the mixed pool that includes the travel-bureau nodes. The mixed nine include Masjid al-Faruq, named as Hizb ut-Tahrir's mosque.",
+    "Kühle and Larsen identified 160 rooms and then counted ethnicity and madhhab. Last split on paper: Sunni 138, Shia 20, Ahmadiyya 2. This ledger is mosques, not 'Sunni mosques.' Turkish 41 is mostly a Diyanet parish. Arab 39 is the mixed Sunni pool that includes the travel-bureau nodes. The mixed nine include Masjid al-Faruq, named as Hizb ut-Tahrir's mosque. Shia is a different command problem (Imam Ali), not a Syria travel bureau.",
   ethnic: {
     turkish: { name: "Turkish", note: "Largest bloc. Diyanet parish system as the default, not a cell chart." },
     arab: { name: "Arab", note: "Mixed pool: quiet parish, Brotherhood dawa, Salafi kitchens. Grimhøj sits here as a type, not as a count." },
@@ -552,12 +552,12 @@ const da: CensusCopy = {
   method: [
     "To identiteter, der bør mødes. Først: inklusive steder ≈ muslimsk befolkning ÷ opland per fast bedested. Dernæst: inklusive ≈ kortlagt × mørketalsfaktor.",
     "Arbejdsbeholdning: ~300.000 muslimer i Danmark (Jacobsen 292.000 i 2024/25, stigende). Opland 950 giver ~316 steder. Kortlagt 185 × 1,7 giver ~315. Feltestimatet på 300+ er det møde, ikke et rundt tal til en plakat.",
-    "1974 er kontrolobservationen: én sunnimoské i levende erindring. Nusrat Jahan (Ahmadiyya, 1967) er det første egentlige moskéhus i Norden; sunniislam tæller den ikke som moské efter erklæringen i 1974. Gæstearbejdernes bederum var kun ved at begynde. Kurven fra det ene rum til tre hundrede er den sakrale halvdel af bosættelsen.",
-    "De 40% 'væbnede' er et feltestimat, ikke et PET-inventar. Denne protokol splitter det i fire etager med grader. At læse den kinetiske etage som bekræftet er en metodeovertrædelse.",
+    "1974 er kontrolobservationen: én navngivet sunnimoské i levende erindring. Nusrat Jahan (Ahmadiyya, 1967) er det første egentlige moskéhus i Norden; sunniislam tæller den ikke efter erklæringen i 1974. Gæstearbejdernes rum var kun ved at begynde. Det inklusive lag i 2026 er fredagsrum af alle tilhørsforhold — ikke en sunni-only-tælling. Kühle/Larsens sidste etniske split (2017) var 138 sunni, 20 shia, 2 ahmadiyya af 160 identificerede. Flertal sunni er en kendsgerning. Sunni-only er en tilsvining af protokollen.",
+    "De 40% 'væbnede' er et feltestimat, ikke et PET-inventar. Denne protokol splitter det i fire etager med grader. Syrien-rejsebureauet og det salafitiske/broderskabslattice er en sunniislamistisk sag. Imam Ali er et andet våben: iransk kommando, shia. At læse den kinetiske etage som bekræftet er en metodeovertrædelse.",
   ],
   controlTitle: "1974 som kontrol",
   control:
-    "Et menneske født i 1974 kunne nævne én sunnimoské i Danmark. Tooghalvtreds år senere ligger det inklusive lag over tre hundrede. Det er ikke 'diversitet, der ankommer.' Det er et institutionelt byggeri i familiesammenføringens, asylets og natalismens tempo — det samme tempo som resten af dette atlas.",
+    "Et menneske født i 1974 kunne nævne én sunnimoské i Danmark. Ahmadiyya-huset i Hvidovre stod allerede; sunniislam var netop holdt op med at tælle det. Tooghalvtreds år senere ligger det inklusive lag over tre hundrede fredagsrum — mest sunni, også shia, også de to ahmadiyya-rum. Det er ikke 'diversitet, der ankommer.' Det er et institutionelt byggeri i familiesammenføringens, asylets og natalismens tempo — det samme tempo som resten af dette atlas.",
   layersTitle: "Fire lag, fire tal",
   layers: {
     purpose: {
@@ -587,7 +587,7 @@ const da: CensusCopy = {
   meetOk: "De to identiteter mødes. Det er metoden, der virker.",
   meetOff: "Identiteterne er gledet fra hinanden. En af skyderne gør for meget arbejde.",
   growthTitle: "Tempo fra kontrolåret",
-  growthDek: "Én sunnimoské i levende erindring, 1974. Renters rente på det inklusive lag fra det ene rum. Fordoblingstiden er den sakrale halvdel af bosættelsen, i en enhed et ministerium stadig kan nægte at trykke.",
+  growthDek: "Én navngivet sunnimoské i levende erindring, 1974. Renters rente på det inklusive fredagsrumslag fra den kontrol — flertal sunni, ikke sunni-only. Fordoblingstiden er den sakrale halvdel af bosættelsen, i en enhed et ministerium stadig kan nægte at trykke.",
   growthLine: "{start} → {end} på {years} år · fordobling hver {d}. år · {cagr}% om året",
   darkGap: "{n} rum sidder i mørketallet — inklusivt minus kortlagt. Kældre køber ikke opslag.",
   darkGapLabel: "Mørketal",
@@ -635,7 +635,7 @@ const da: CensusCopy = {
   curveDek: "Kortlagt lag mod inklusivt lag. Afstanden er mørketallet. Den åbner efter gæstearbejderårene og udvider sig med familiesammenføring og 2015.",
   ethnicTitle: "Hvem de kortlagte rum tilhørte i 2017",
   ethnicDek:
-    "Kühle og Larsen identificerede 160 rum og talte derefter etnicitet. Dette er den sidste etniske tælling af det kortlagte lag. Det er ikke en fjendtlighedstælling. Tyrkiske 41 er mest et Diyanet-sogn. Arabiske 39 er den blandede pool, der rummer rejsebureau-knuderne. De ni blandede tæller Masjid al-Faruq, navngivet som Hizb ut-Tahrirs moské.",
+    "Kühle og Larsen identificerede 160 rum og talte derefter etnicitet og madhhab. Sidste split på papir: sunni 138, shia 20, ahmadiyya 2. Denne protokol er moskéer, ikke 'sunnimoskéer.' Tyrkiske 41 er mest et Diyanet-sogn. Arabiske 39 er den blandede sunnipool, der rummer rejsebureau-knuderne. De ni blandede tæller Masjid al-Faruq, navngivet som Hizb ut-Tahrirs moské. Shia er et andet kommando-problem (Imam Ali), ikke et Syrien-rejsebureau.",
   ethnic: {
     turkish: { name: "Tyrkiske", note: "Største blok. Diyanet-sogn som standard, ikke et cellekort." },
     arab: { name: "Arabiske", note: "Blandet pool: stille sogn, Broderskabs-dawa, salafistiske køkkener. Grimhøj sidder her som type, ikke som tal." },
